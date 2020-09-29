@@ -1,0 +1,79 @@
+//RESTAURANTS
+let header = document.querySelector('header');
+let section = document.querySelector('section');
+
+//On instancie un nouvel objet XMLHttpRequest pour créer une requête 
+const request = new XMLHttpRequest();
+const url = 'assets/list-restaurant.json';
+
+//On ouvre une nouvelle requête - méthode open()
+request.open('GET', url, true)
+request.responseType = 'json';
+
+//On stocke la réponse de notre requête dans la variable restaurant
+request.onload = () => {
+  let restaurant = request.response;
+  showCard(restaurant);
+}
+
+//On envoie la requête - méthode send()
+request.send();
+
+
+
+function showCard(jsonObj) {
+
+    let resto = jsonObj['restaurants'];
+
+    for(let i = 0; i < resto.length; i++) {
+        let myArticle = document.createElement('article');
+
+        //Name
+        let nameRestaurant = document.createElement('h2');
+        nameRestaurant.textContent = resto[i].restaurantName;
+        myArticle.appendChild(nameRestaurant);
+
+        //Address
+        let address = document.createElement('p');
+        address.textContent = resto[i].address;
+        myArticle.appendChild(address);
+
+        section.appendChild(myArticle);
+    }
+}
+
+//MAP
+let map;
+
+function initMap() {
+
+  let paris = {
+    lat: 48.8566969,
+    lng: 2.3514616
+  }
+
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: paris,
+    zoom: 8
+  });
+
+  let marker = new google.maps.Marker({
+    position: paris,
+    map: map
+  })
+}
+
+
+
+
+
+
+fetch(url).then(function(response) {
+  if(response.ok) {
+    response.json().then(function(cardRestaurant) {
+      showCard(cardRestaurant);
+    });
+  } else {
+    console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
+  }
+});
