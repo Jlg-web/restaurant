@@ -1,39 +1,88 @@
-// const request = new XMLHttpRequest();
-// request.open('GET', url, true)
-// request.responseType = 'json';
-// request.onload = () => {
-//   let restaurant = request.response;
-//   showCard(restaurant);
-// }
-// request.send();
-
-let header = document.querySelector('header');
-let section = document.querySelector('section');
+const header = document.querySelector('header');
+const section = document.querySelector('section');
 const url = 'assets/list-restaurant.json';
-// 1- Méthode fetch -> url de la ressource
-// 2- Méthode .then() -> retourne promesse 1 (opération asynchrones) : retourne une promesse qui résout une réponse HTTP 
-// 3- On récupère le contenu de la réponse en json 
-// 4- Méthode .then() -> retourne promesse 2 (opération asynchrones) : nouvelle fonction qui décide de ce que nous faisons avec le json récupéré
-fetch(url).then(function(response) {
-  response.json().then(function(cardRestaurant) {
-    showCard(cardRestaurant);
+
+fetch(url)
+  .then((response) => response.json())
+  .then((response) => {
+    infoRestaurant(response);
   });
-});
 
-function showCard(jsonObj) {
+// MAP
+function initMap() {
 
-  let resto = jsonObj['restaurants'];
+  // Localisation par défaut
+  let defaultLocation = {
+    lat: 48.8737815,
+    lng: 2.3501649
+  };
+
+  // Affichage de la carte
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: defaultLocation,
+    zoom: 10,
+    mapTypeId: "roadmap"
+  });
+
+  // Geolocalisation utilisateur
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        map.setCenter(pos);
+        let marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          // icon: {
+          //   url: "http://maps.google.com/mapfiles/ms/icons/grn-pushpin.png"
+          // }
+        });
+
+      },
+      function () {
+        handleLocationError(true, infoWindow, map.getCenter());
+      }
+    );
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+  // Ajout d'un marker au click
+  map.addListener("click", (e) => {
+    placeMarkerAndPanTo(e.latLng, map);
+  });
+
+}
+
+// Ajout Marker et gestion
+function placeMarkerAndPanTo(latLng, map) {
+  new google.maps.Marker({
+    position: latLng,
+    map: map,
+  });
+  map.panTo(latLng);
+}
+
+
+function infoRestaurant(jsonObj) {
+
+  const resto = jsonObj['restaurants'];
 
   for (let i = 0; i < resto.length; i++) {
-    let myArticle = document.createElement('article');
+    const myArticle = document.createElement('article');
 
     //Name
-    let nameRestaurant = document.createElement('h2');
+    const nameRestaurant = document.createElement('h2');
     nameRestaurant.textContent = resto[i].restaurantName;
     myArticle.appendChild(nameRestaurant);
 
     //Address
-    let address = document.createElement('p');
+    const address = document.createElement('p');
     address.textContent = resto[i].address;
     myArticle.appendChild(address);
 
@@ -41,22 +90,4 @@ function showCard(jsonObj) {
   }
 }
 
-//MAP
-let map;
-function initMap() {
 
-  let paris = {
-    lat: 48.8566969,
-    lng: 2.3514616
-  }
-
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: paris,
-    zoom: 8
-  });
-
-  let marker = new google.maps.Marker({
-    position: paris,
-    map: map
-  })
-}
