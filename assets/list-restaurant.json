@@ -1,13 +1,10 @@
 {
-
-  "title": "Liste des restaurants",
-
   "restaurants": [
      {
       "restaurantName": "Bronco",
       "address": "39 Rue des Petites Écuries, 75010 Paris",
       "lat": 48.8737815,
-      "long": 2.3501649,
+      "lon": 2.3501649,
       "ratings": [{
           "stars": 4,
           "comment": "Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande."
@@ -22,8 +19,8 @@
     {
       "restaurantName": "Royal",
       "address": "4 Rue Lamarck, 75018 Paris",
-      "lat": 48.8865035,
-      "long": 2.3442197,
+      "lat": 48.85512972379505,
+      "lon": 2.3610925640878344,
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -38,8 +35,8 @@
     {
       "restaurantName": "le Crépuscule",
       "address": "4 Rue Lamarck, 75018 Paris",
-      "lat": 48.8865035,
-      "long": 2.3442197,
+      "lat": 48.84687710295406,
+      "lon": 2.348996635109555,
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -55,7 +52,7 @@
       "restaurantName": "Atlas",
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 48.8865035,
-      "long": 2.3442197,
+      "lon": 2.3442197,
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -70,8 +67,8 @@
     {
       "restaurantName": "le Forestier",
       "address": "4 Rue Lamarck, 75018 Paris",
-      "lat": 48.8865035,
-      "long": 2.3442197,
+      "lat": 48.868630703949826,
+      "lon": 2.31701532871345,
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -86,8 +83,8 @@
     {
       "restaurantName": "Nirvana",
       "address": "4 Rue Lamarck, 75018 Paris",
-      "lat": 48.8865035,
-      "long": 2.3442197,
+      "lat": 48.88601964066767,
+      "lon": 2.348789974143375,
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"

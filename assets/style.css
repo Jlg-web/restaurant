@@ -7,8 +7,10 @@ p {
 }
 
 #map {
-  width: 100%;
+  width: 50%;
   height: 100vh;
+  right: 0;
+  position: absolute;
 }
 
 body {
@@ -24,7 +26,7 @@ section {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-
+  left: 0;
   overflow: auto;
 }
 
@@ -33,13 +35,26 @@ section article {
   max-height: 341px;
   background: #f7f7f7;
   margin: 10px;
+  background-image: url('../assets/img/resto.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(30%);
 }
 
 section h2 {
-  font-size: 20px;
+  font-size: 24px;
+  color: black;
 }
 
-section p {
+section .article-adress {
   color: #545454;
   font-size: 14px;
+  color: black;
+}
+
+.content-text {
+  background: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
