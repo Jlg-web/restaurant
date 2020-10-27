@@ -11,12 +11,39 @@ Visio mardi 6 octobre
 Visio mardi 13 octobre
 
 - Lecture de la doc 
-- centrage de la carte
 - Changement structure affichage des éléments
 - Ajout fonction addMarker qui récupère les propriétés de l'objet (voir pour récupérer les propriétés dans le json)
 - Changement icon utilisateur
 
-- Différence forEach et map
+
+Visio mardi 20 octobre
+
+- Révision fetch
+- Utilisation jsonplaceholder (entrainement avec des fausses API - Utilisation de différentes méthodes)
+- Modification du fetch (gestion des erreurs - try/catch, response.ok, + réorganisation du code) - meilleure compréhension
+- Ajout dans le json des images des restaurants (récupération dynamique)
+- Possibilité de scroller au niveau de la liste des restaurants
+- Passage d'une partie du code en POO (entrainement)
+- Utilisation de LatLngBounds pour centrer la map sur les markers
+
+
+Visio mardi 27 octobre
+
+AJOUT D'UN RESTAURANT 
+- Création de la modale qui contient le formulaire d'ajout d'un restaurant
+- Mise en place de jQuery et adaptation du code 
+- Ajout d'un marker sur la carte au click (fonction placeMarkerAndPanTo)
+- Récupération de l'adresse du click dans le formulaire de la modale (Geocoder)
+
+
+
+
+
+
+
+
+
+
 
 
 

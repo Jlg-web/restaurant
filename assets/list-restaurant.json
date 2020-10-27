@@ -1,10 +1,11 @@
-{
-  "restaurants": [
+
+[
      {
       "restaurantName": "Bronco",
       "address": "39 Rue des Petites Écuries, 75010 Paris",
       "lat": 48.8737815,
       "lon": 2.3501649,
+      "imgUrl": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80",
       "ratings": [{
           "stars": 4,
           "comment": "Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande."
@@ -21,6 +22,8 @@
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 48.85512972379505,
       "lon": 2.3610925640878344,
+      "imgUrl": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80",
+
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -37,6 +40,8 @@
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 48.84687710295406,
       "lon": 2.348996635109555,
+      "imgUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80",
+
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -53,6 +58,8 @@
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 48.8865035,
       "lon": 2.3442197,
+      "imgUrl": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80",
+
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -69,6 +76,8 @@
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 48.868630703949826,
       "lon": 2.31701532871345,
+      "imgUrl": "https://images.unsplash.com/photo-1579027989536-b7b1f875659b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80",
+
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -85,6 +94,26 @@
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 48.88601964066767,
       "lon": 2.348789974143375,
+      "imgUrl": "https://images.unsplash.com/photo-1526234362653-3b75a0c07438?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80",
+
+      "ratings": [{
+          "stars": 5,
+          "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
+        },
+        {
+          "stars": 3,
+          "comment": "J'ai trouvé ça correct, sans plus"
+        }
+      ]
+    },
+
+    {
+      "restaurantName": "Boulogne Billancourt resto",
+      "address": "10 Rue du lac, Boulogne",
+      "lat": 48.8356649,
+      "lon": 2.240206,
+      "imgUrl": "https://images.unsplash.com/photo-1482275548304-a58859dc31b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2255&q=80",
+
       "ratings": [{
           "stars": 5,
           "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
@@ -98,4 +127,3 @@
     
   ]
   
-}
