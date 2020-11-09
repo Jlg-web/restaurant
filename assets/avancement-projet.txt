@@ -36,6 +36,26 @@ AJOUT D'UN RESTAURANT
 - Récupération de l'adresse du click dans le formulaire de la modale (Geocoder)
 
 
+Visio mardi 03 novembre
+
+- Disparition de la modale lors du post d'un restaurant (ajout du type="submit" et du form="form-add-restaurant" dans le HTML)
+- Création de plusieurs classes (AddElement.js, Restaurant.js)
+- Création de la méthode addRestaurant dans la classe AddElement
+- Méthode getRestaurant (fetch) déplacée dans la classe Restaurant
+- Récupération des caractéristiques d'un restaurant dans la console lors de l'envoi du formulaire
+
+* Problème d'apparition des restaurants au lancement du site
+* Problème de récupération des restaurants dans la liste
+* Utilisation du localstorage ?
+
+
+Visio mardi 09 novembre
+
+
+
+
+
+
 
 
 

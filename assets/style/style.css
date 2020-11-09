@@ -86,11 +86,11 @@ section {
     top: 50%;
     padding: 42px;
     min-width: 600px;
-    visibility: hidden;
+    display: none;
 }
 
 .modal-add-restaurant.active {
-  visibility: visible;
+  display: block;
 }
 
 .modal-add-restaurant h3 {
