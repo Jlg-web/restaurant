@@ -1,10 +1,8 @@
 class Restaurant {
-
-    constructor(restaurantName, address, lat, long) {
+    
+    constructor(restaurantName, address) {
         this.restaurantName = restaurantName;
         this.address = address;
-        this.lat = lat;
-        this.long = long;
     }
 
 }

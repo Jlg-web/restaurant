@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <link rel="stylesheet" href="assets/style/style.css">
   <title>API</title>
 </head>
@@ -11,7 +13,41 @@
 <body>
 
   <!-- Liste des restaurant et map -->
-  <section class="content-restaurant"></section>
+  <section id="lsOutput" class="content-restaurant"></section>
+  <!-- <section class="modal-details-restaurant"></section> -->
+
+  <!-- MODAL DETAILS RESTAURANTS -->
+  <div class="modal-details-restaurant">
+    <div id="modal-details" class="modal-content-restaurant">
+      <div class="close">Fermer</div>
+
+      <h2>Votre avis</h2>
+
+      <div class="star-container">
+        <h3>nombre d'étoiles :</h3>
+        <div class="star-symbol-container">
+          <span class="fas fa-star" data-star="1 étoile (Très mauvais)"></span>
+          <span class="fas fa-star" data-star="2 étoiles (Mauvais)"></span>
+          <span class="fas fa-star" data-star="3 étoiles (Bon)"></span>
+          <span class="fas fa-star" data-star="4 étoiles (Très bon !)"></span>
+          <span class="fas fa-star" data-star="5 étoiles (Excellent !)"></span>
+        </div>
+        <div class="star-vote">
+          Vote : <span class="rating"></span>
+        </div>
+      </div>
+
+      <div class="comm-container">
+        <h3>Votre commentaire :</h3>
+        <textarea name="" id="" cols="40" rows="10" placeholder="Votre commentaire :">
+
+        </textarea>
+      </div>
+
+      <button class="btn-details">Poster mon avis</button>
+    </div>
+  </div>
+
   <div id="map"></div>
 
   <!-- Modal ajout restaurant -->
@@ -20,11 +56,11 @@
     <div class="modal-content">
       <h3>Ajouter un restaurant</h3>
 
-      <form action="" id="form-add-restaurant" onsubmit=" return false">
+      <form action="" id="form-add-restaurant" onsubmit="return false">
 
         <div class="flex flex-column m-b-16">
           <label for="">Nom du restaurant</label>
-          <input type="text" id="restaurant-name">
+          <input id="restaurant-name" type="text">
         </div>
 
         <div class="flex flex-column m-b-16">
@@ -36,19 +72,17 @@
       </form>
 
     </div>
-    
+
   </div>
 
 
   <script src="assets/script/vendor.js"></script>
   <script src="assets/script/class/GoogleMap.js"></script>
-  <script src="assets/script/class/AddElement.js"></script>
   <script src="assets/script/class/Restaurant.js"></script>
-
-
+  <script src="assets/script/class/ReviewGestion.js"></script>
+  <script src="assets/script/class/RestaurantController.js"></script>
   <script src="assets/script/app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js  "></script>
-  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzFwWZ9ZZTlhTFhJc95JH-YT181mXx08I&callback=initMap"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 
 </html>

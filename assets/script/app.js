@@ -1,49 +1,31 @@
 const $map = document.querySelector("#map");
 
-// Fonction getRestaurant (Fetch)
-const getRestaurants = async () => {
-  const response = await fetch('assets/list-restaurant.json');
-  return response.json();
-}
-
 // GESTION MAP
 const initMap = async function () {
+
   let map = new GoogleMap();
-  let resto = new Restaurant();
+  let restaurant = new Restaurant();
+  let restaurantController = new RestaurantController();
+  let reviewGestion = new ReviewGestion();
+  let restaurants = await restaurantController.getRestaurants();
   await map.load($map);
-  const restaurants = await getRestaurants();
-  restaurants.forEach(resto => {
+
+  restaurants.forEach(elmt => {
     map.addMarker({
       coords: {
-        lat: resto.lat,
-        lng: resto.lon
+        lat: elmt.lat,
+        lng: elmt.lon
       }
     }, map);
   })
+  
+  reviewGestion.initRating();
   map.centerMap();
   map.positionUser();
+  restaurantController.addNewRestaurant(restaurant);
 }
 
 if ($map !== null) {
   initMap();
 }
 
-// Ajout restaurant
-const displayRestaurants = async () => {
-
-  const restaurants = await getRestaurants();
-
-  $('.content-restaurant').html (
-    restaurants.map(resto => (
-      `
-      <div class="container-restaurant">
-        <img alt="${resto.restaurantName}" src="${resto.imgUrl}"></img>
-        <h2>${resto.restaurantName}</h2>
-        <p>${resto.address}</p>
-      </div>
-      `
-    )).join('')
-  );
-}
-
-displayRestaurants();

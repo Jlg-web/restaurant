@@ -1,12 +1,15 @@
 class GoogleMap {
 
   constructor() {
+    this.btnDetails = document.getElementById("btn-details");
     this.map = null;
     this.bounds = null;
   }
 
   async load(element) {
+
     return new Promise((resolve, reject) => {
+
       $script('https://maps.googleapis.com/maps/api/js?key=AIzaSyCzFwWZ9ZZTlhTFhJc95JH-YT181mXx08I', () => {
         const center = {
           lat: -25.344,
@@ -15,18 +18,19 @@ class GoogleMap {
         this.map = new google.maps.Map(element);
         this.bounds = new google.maps.LatLngBounds();
 
-
-        // EVENT CLICK MAP
+        // EVENT CLICK MAP //
         this.map.addListener("click", (e) => {
 
-          $('#restaurant-name').val(''); 
+          //Récupération de la valeur du champs "Nom du restaurant" du formulaire
+          $('#restaurant-name').val('');
+          //Récupération de la valeur du champs "Adresse du restaurant" du formulaire
           $('#restaurant-address').val('');
-
-          const clickPosition = e.latLng;
-          this.placeMarkerAndPanTo(e.latLng, this.map);
+          // Ajout de la class active pour faire apparaitre la modal
           $('#modal').addClass("active");
 
-          // Récupération de l'adresse du restaurant
+          // Récupération de la position (latitude et longitude) et ajout du marker sur la map
+          const clickPosition = e.latLng;
+          this.placeMarkerAndPanTo(e.latLng, this.map);
           let geocoder = new google.maps.Geocoder();
           geocoder.geocode({
             'location': clickPosition
@@ -42,26 +46,36 @@ class GoogleMap {
             }
           });
 
-          // Action submit modal
-          $('#form-add-restaurant').submit(function(e) {
+          // EVENT SUBMIT MODAL //
+          $('#form-add-restaurant').submit(function (e) {
 
             e.stopImmediatePropagation();
-
             $('#modal').removeClass("active");
-            const restaurantName = $('#restaurant-name').val(); 
+            const restaurantName = $('#restaurant-name').val();
             const address = $('#restaurant-address').val();
             const lat = clickPosition.lat();
             const long = clickPosition.lng();
 
-            let addElement = new AddElement();
-            let newRestaurant = new Restaurant(restaurantName, address, lat, long);
+            // transformer l'objet en chaine de caractère
+            // tableau pour recuperer les restaurants du localstorage
 
-            addElement.addRestaurant(newRestaurant);
+            let restaurants = new RestaurantController();
+            let restaurant = new Restaurant(restaurantName, address);
+            restaurants.addNewRestaurant(restaurant);
           })
+          // END EVENT SUBMIT MODAL //
         });
+        // END EVENT CLICK MAP
+
+
         resolve();
       });
+
+
+
     });
+
+    
   };
 
   // Méthode addmarker (Ajout des markers restaurants)

@@ -57,11 +57,11 @@ function addMarker(props, map) {
 }
 
 
-restaurants.forEach(resto => {
+restaurants.forEach(elmt => {
     addMarker({
         coords: {
-            lat: resto.lat,
-            lng: resto.lon
+            lat: elmt.lat,
+            lng: elmt.lon
         }
     }, map);
 })

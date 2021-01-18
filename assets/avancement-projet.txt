@@ -2,15 +2,15 @@ Visio mardi 6 octobre
 
 - Lecture documentation API google maps
 - Fonction initMap
-    Ajout defaultLocation
-    Ajout mapTypeId (par défaut)
-    navigator.geolocation : position de l'utilisateur
-    Evenement Ajout marker sur la map
+Ajout defaultLocation
+Ajout mapTypeId (par défaut)
+navigator.geolocation : position de l'utilisateur
+Evenement Ajout marker sur la map
 
 
 Visio mardi 13 octobre
 
-- Lecture de la doc 
+- Lecture de la doc
 - Changement structure affichage des éléments
 - Ajout fonction addMarker qui récupère les propriétés de l'objet (voir pour récupérer les propriétés dans le json)
 - Changement icon utilisateur
@@ -20,7 +20,8 @@ Visio mardi 20 octobre
 
 - Révision fetch
 - Utilisation jsonplaceholder (entrainement avec des fausses API - Utilisation de différentes méthodes)
-- Modification du fetch (gestion des erreurs - try/catch, response.ok, + réorganisation du code) - meilleure compréhension
+- Modification du fetch (gestion des erreurs - try/catch, response.ok, + réorganisation du code) - meilleure
+compréhension
 - Ajout dans le json des images des restaurants (récupération dynamique)
 - Possibilité de scroller au niveau de la liste des restaurants
 - Passage d'une partie du code en POO (entrainement)
@@ -29,16 +30,17 @@ Visio mardi 20 octobre
 
 Visio mardi 27 octobre
 
-AJOUT D'UN RESTAURANT 
+AJOUT D'UN RESTAURANT
 - Création de la modale qui contient le formulaire d'ajout d'un restaurant
-- Mise en place de jQuery et adaptation du code 
+- Mise en place de jQuery et adaptation du code
 - Ajout d'un marker sur la carte au click (fonction placeMarkerAndPanTo)
 - Récupération de l'adresse du click dans le formulaire de la modale (Geocoder)
 
 
 Visio mardi 03 novembre
 
-- Disparition de la modale lors du post d'un restaurant (ajout du type="submit" et du form="form-add-restaurant" dans le HTML)
+- Disparition de la modale lors du post d'un restaurant (ajout du type="submit" et du form="form-add-restaurant" dans le
+HTML)
 - Création de plusieurs classes (AddElement.js, Restaurant.js)
 - Création de la méthode addRestaurant dans la classe AddElement
 - Méthode getRestaurant (fetch) déplacée dans la classe Restaurant
@@ -48,15 +50,13 @@ Visio mardi 03 novembre
 * Problème de récupération des restaurants dans la liste
 * Utilisation du localstorage ?
 
-
-Visio mardi 09 novembre
-
-
-
-
-
-
-
+//01/12
+Renommer addNewRestaurant par addNewRestaurant
+Utilisation API google récupération coordonnées
+Creation d'un nouveau restaurant
+Ajouter à this.restaurants
+Vérifier avec un console.log que this.restaurants contient ce nouveau restaurant
+Rafraichir la liste de restaurant (boucle for)
 
 
 
@@ -65,33 +65,26 @@ Visio mardi 09 novembre
 
 
 
+// if (key && value) {
+// localStorage.setItem(key, restaurantName);
+// }
 
-
-🎯 Développer une application JavaScript complète en respectant un cahier des charges
-
-Le développement est validé si :
-
-❒ L'application utilise les concepts de POO
-
-❒ Le projet respecte le cahier des charges :
-
- La carte affiche les restaurants depuis l'api google places (ou autre) et on peut la configurer pour afficher les restaurants d'un fichier json local
- On peut voir les commentaires postés sur un restaurant ainsi que la photo google street view
- On peut ajouter un commentaire (fictif)
- 
-
-🎯 Utiliser une API externe en JavaScript
-
-L'utilisation est validée si :
-
-❒ L'application utilise google maps ou autre api de cartographie
-
-❒ L'application utilise google places ou autre api de restaurant
-
-❒ L'application utilise google street view
-
-❒ L'application affiche un message d'information si l'utilisateur n'active pas sa géolocalisation
-
-
-
-
+// for (let i = 0; i < localStorage.length; i++) { 
+    // const key=localStorage.key(i); 
+    // const restaurantName=localStorage.getItem(key); 
+    // lsOutput.innerHTML +=`${key}: ${restaurantName}`;
+    } 
+    
+    
+    
+    
+    
+    🎯 Développer
+    une application JavaScript complète en respectant un cahier des charges Le développement est validé si : ❒
+    L'application utilise les concepts de POO ❒ Le projet respecte le cahier des charges : La carte affiche les
+    restaurants depuis l'api google places (ou autre) et on peut la configurer pour afficher les restaurants d'un
+    fichier json local On peut voir les commentaires postés sur un restaurant ainsi que la photo google street view On
+    peut ajouter un commentaire (fictif) 🎯 Utiliser une API externe en JavaScript L'utilisation est validée si : ❒
+    L'application utilise google maps ou autre api de cartographie ❒ L'application utilise google places ou autre api de
+    restaurant ❒ L'application utilise google street view ❒ L'application affiche un message d'information si
+    l'utilisateur n'active pas sa géolocalisation

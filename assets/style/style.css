@@ -1,4 +1,3 @@
-
 /* Reset */
 html,
 body,
@@ -78,15 +77,15 @@ section {
 
 /* MODAL */
 .modal-add-restaurant {
-    position: absolute;
-    background: white;
-    z-index: 10;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    padding: 42px;
-    min-width: 600px;
-    display: none;
+  position: absolute;
+  background: white;
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  padding: 42px;
+  min-width: 600px;
+  display: none;
 }
 
 .modal-add-restaurant.active {
@@ -96,6 +95,7 @@ section {
 .modal-add-restaurant h3 {
   font-size: 32px;
   margin-bottom: 24px;
+  font-weight: 500;
 }
 
 .modal-content label {
@@ -109,6 +109,106 @@ section {
   border: 1px solid #d7d7d7;
 }
 
+/* Modal détails restaurant */
+.modal-details-restaurant {
+  position: absolute;
+  background: white;
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  padding: 22px;
+  min-width: 600px;
+  display: none;
+
+}
+
+.modal-content-restaurant .close {
+  font-size: 1.2rem;
+  position: absolute;
+  right: 18px;
+  top: 10px;
+  padding: 1.4rem;
+  cursor: pointer;
+  color: #afafaf;
+}
+
+.modal-content-restaurant h2 {
+  margin-top: 3rem;
+  font-size: 1.8rem;
+  border-bottom: 1px solid #efefef;
+  padding-bottom: .5rem;
+}
+
+.modal-content-restaurant textarea {
+  margin-top: 1rem !important;
+  resize:none;
+}
+
+.star-container {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.star-container h3 {
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+}
+
+
+.star-container .star-symbol-container {
+  background: #eaeaea;
+  padding: .6rem;
+  margin-right: .5rem;
+  margin-bottom: 1.2rem;
+}
+
+.fa-star {
+  color: #c9c9c9;
+}
+
+.fa-star:hover {
+  cursor: pointer;
+}
+
+.checked {
+  color: #ff9f39;
+}
+
+.rating {
+  margin-left: 0.35rem;
+}
+
+.open-modal {
+  display: block;
+}
+
+.btn-details {
+  border: none;
+  padding: 1.5rem 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  background: #2196f3;
+  color: white;
+}
+
+.btn-details:focus {
+  outline: 0;
+}
+
+.btn-details:hover {
+  background: rgba(33, 150, 243, 0.88);
+}
+
+.comm-container h3 {
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+  font-weight: 500;
+}
+
 /* BTN */
 .btn {
   background-color: #2196f3;
@@ -119,4 +219,8 @@ section {
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
+}
+
+.name-modal-restaurant {
+  font-size: 2rem;
 }
