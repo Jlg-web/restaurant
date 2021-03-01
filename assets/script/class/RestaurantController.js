@@ -1,31 +1,59 @@
 class RestaurantController {
-
-    //e.preventDefault() au moment du click;
+    // Fonction qui sépare la logique de l'affichage
+    // Appel à l' API et récupère les restaurants du localstorage et qui merge les 2
+    // Création d'un tableau restaurant
+    // Une autre fonction d'affichage
 
     constructor() {
-        this.restaurants = [];
-        console.log(this.restaurants);        
+        // this.restaurants = [];
+        // console.log(this.restaurants);
+        this.keyRestaurant = "restaurant";
+        this.restaurants = localStorage.getItem(this.keyRestaurant);
+        // initialize();
+
     }
 
     //Méthode récupération restaurants
     async getRestaurants() {
-        const response = await fetch('assets/list-restaurant.json');
-        return response.json();
 
+        // return [];
+        const url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Restaurant%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCzFwWZ9ZZTlhTFhJc95JH-YT181mXx08I';
         // let request = new Request('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCzFwWZ9ZZTlhTFhJc95JH-YT181mXx08I');
-        // fetch(request, {mode: 'cors'}).then(function(response) {
+        const response = await fetch(url, {mode: 'cors'});
+        return response;
+
+        // .then(function(response) {
         //     this.restaurants = response.json();
+        //     console.log(this.restaurants);
         // })
+
+        // const response = await fetch('assets/list-restaurant.json');
+        // return response.json();
+
     }
 
     // Méthode affichage restaurants
-    async addNewRestaurant(elmt) {
-
-        console.log(`nom du resto : ${elmt.restaurantName}\n\nadresse : ${elmt.address}`);
-
-        $('.content-restaurant').html(`nom du resto : ${elmt.restaurantName}\n\nadresse : ${elmt.address}`);
+    async addNewRestaurant() {
 
         this.recupResto = await this.getRestaurants();
+
+        if (this.restaurants === null) {
+            localStorage.setItem(this.keyRestaurant, "[]");
+        }
+
+        const lsOutput = document.getElementById('lsOutput');
+        const restaurants = JSON.parse(localStorage.getItem(this.keyRestaurant));
+        console.log(restaurants);
+
+        if (restaurants === null) {
+            lsOutput.innerHTML = "Aucun restaurant";
+        } else {
+            lsOutput.innerHTML = `${restaurants}`;
+        }
+
+        const valueRestaurant = document.getElementById('restaurant-name').value;
+        restaurants.push(valueRestaurant);
+        localStorage.setItem(this.keyRestaurant, JSON.stringify(restaurants));
 
         $('.content-restaurant').html(
             this.recupResto.map(elmt => (
@@ -39,16 +67,17 @@ class RestaurantController {
                 `
             )).join('')
         );
-        
-        // this.modalGestion();
+
         this.displayModal();
     }
 
-
     displayModal() {
 
-        //Créer une nouvelle instance de ReviewGestion 
-        // Appeler initRating
+        
+        //Nouvelle instance de ReviewGestion 
+        let reviewGestion = new ReviewGestion();
+        // Appel initRating
+        reviewGestion.initRating();
 
         const modal = document.querySelector(".modal-details-restaurant");
         const buttons = document.querySelectorAll(".btn-details");
@@ -56,64 +85,21 @@ class RestaurantController {
 
         for (let i = 0; i < buttons.length; i++) {
             let openModalBtn = buttons[i];
-            openModalBtn.addEventListener("click", (event) => {
-                modal.style.display = "block";
+            openModalBtn.addEventListener("click", function (event) {
                 event.preventDefault();
-            })
+                modal.style.display = "block";
+            });
         }
 
         for (let i = 0; i < close.length; i++) {
             let closeModalBtn = close[i];
-            closeModalBtn.addEventListener("click", (event) => {
-                modal.style.display = "none";
+            closeModalBtn.addEventListener("click", function (event) {
                 event.preventDefault();
-            })
+                modal.style.display = "none";
+                // Fonction Reset qui va retirer les eventListeners et retirer le vote HTML ("chaine de caractère")
+                // ex: star.addEventListener("mouseleave", removeStar);
+            });
         }
-
     }
-
-
-    // modalGestion() {
-        
-    //     $('.modal-details-restaurant').html(
-    //         this.recupResto.map(elmt => (
-    //             `
-    //             <div id="modal-details" class="modal-content-restaurant">
-
-    //               <div class="close">Fermer</div>
-            
-    //               <h1 class="name-modal-restaurant">${elmt.restaurantName}</h1>
-
-    //               <h2>Votre avis</h2>
-            
-    //               <div class="star-container">
-    //                 <h3>nombre d'étoiles :</h3>
-    //                 <div class="star-symbol-container">
-    //                   <span class="fas fa-star" data-star="1 étoile (Très mauvais)"></span>
-    //                   <span class="fas fa-star" data-star="2 étoiles (Mauvais)"></span>
-    //                   <span class="fas fa-star" data-star="3 étoiles (Bon)"></span>
-    //                   <span class="fas fa-star" data-star="4 étoiles (Très bon !)"></span>
-    //                   <span class="fas fa-star" data-star="5 étoiles (Excellent !)"></span>
-    //                 </div>
-    //                 <div class="star-vote">
-    //                   Vote : <span class="rating"></span>
-    //                 </div>
-    //               </div>
-            
-    //               <div class="comm-container">
-    //                 <h3>Votre commentaire :</h3>
-    //                 <textarea name="" id="" cols="40" rows="10" placeholder="Votre commentaire :">
-            
-    //                 </textarea>
-    //               </div>
-            
-    //               <button class="btn-details">Poster mon avis</button>
-            
-    //             </div>
-    //             `
-    //         )).join('')
-    //     );
-    // }
-
 
 }

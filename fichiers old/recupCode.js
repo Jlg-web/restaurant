@@ -15,6 +15,7 @@ const addRestaurant = () => {
     } else {
         outPut.innerHTML = `${restaurants}`;
     }
+    
     const valueRestaurant = document.getElementById('valueRestaurant').value;
     restaurants.push(valueRestaurant);
     localStorage.setItem(keyRestaurant, JSON.stringify(restaurants));
@@ -22,6 +23,77 @@ const addRestaurant = () => {
 
 const btn = document.getElementById("btn");
 btn.addEventListener("click", addRestaurant);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function initialize() {
+    var geocoder = new google.maps.Geocoder();
+ 
+    geocoder.geocode( { 'address': Ville}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            miseAjourCarte(results[0].geometry.location);
+        } 
+    });
+}
+ 
+function miseAjourCarte(location)
+{
+    var pyrmont = location;
+    //  var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+ 
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: pyrmont,
+        zoom: 15
+    });
+ 
+    var request = {
+        location: pyrmont,
+        radius: 500,
+        types: ['store']
+    };
+ 
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
+}
+
+
+
+
+
+
+
 
 
 

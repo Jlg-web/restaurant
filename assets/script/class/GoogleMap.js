@@ -31,7 +31,9 @@ class GoogleMap {
           // Récupération de la position (latitude et longitude) et ajout du marker sur la map
           const clickPosition = e.latLng;
           this.placeMarkerAndPanTo(e.latLng, this.map);
+          
           let geocoder = new google.maps.Geocoder();
+          
           geocoder.geocode({
             'location': clickPosition
           }, function (results, status) {
@@ -66,16 +68,9 @@ class GoogleMap {
           // END EVENT SUBMIT MODAL //
         });
         // END EVENT CLICK MAP
-
-
         resolve();
       });
-
-
-
     });
-
-    
   };
 
   // Méthode addmarker (Ajout des markers restaurants)

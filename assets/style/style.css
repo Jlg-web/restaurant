@@ -8,6 +8,13 @@ p {
   margin: 0;
 }
 
+.btn-display-map {
+  font-size: 16px;
+  text-decoration: none;
+  color: black;
+  font-family: sans-serif;
+}
+
 .modal-content input:focus,
 .btn:focus {
   outline: none;
@@ -45,6 +52,7 @@ html {
 
 section {
   position: absolute;
+  flex-direction: column;
   width: 50%;
   background: white;
   z-index: 10;
@@ -52,12 +60,17 @@ section {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-  left: 0;
-  overflow: auto;
 }
 
 .content-restaurant img {
   width: 100%;
+}
+
+.content-restaurant li {
+  list-style: none;
+  font-size: 17px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ececec;
 }
 
 .container-restaurant {
@@ -142,7 +155,7 @@ section {
 
 .modal-content-restaurant textarea {
   margin-top: 1rem !important;
-  resize:none;
+  resize: none;
 }
 
 .star-container {
@@ -223,4 +236,14 @@ section {
 
 .name-modal-restaurant {
   font-size: 2rem;
+}
+
+#pano {
+  background-color: rgb(229, 227, 223);
+  overflow: hidden;
+  position: absolute;
+  height: 392px;
+  z-index: 9999;
+  width: 50%;
+  top: 290px;
 }

@@ -4,17 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <link rel="stylesheet" href="assets/style/style.css">
   <title>API</title>
+
+  <script> async function init() { await initMap()}</script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzFwWZ9ZZTlhTFhJc95JH-YT181mXx08I&libraries=places&callback=init" defer></script>
+
 </head>
 
 <body>
 
+
   <!-- Liste des restaurant et map -->
   <section id="lsOutput" class="content-restaurant"></section>
   <!-- <section class="modal-details-restaurant"></section> -->
+    <!-- panorama -->
+    <div id="pano"></div>
+
 
   <!-- MODAL DETAILS RESTAURANTS -->
   <div class="modal-details-restaurant">
@@ -50,6 +59,13 @@
 
   <div id="map"></div>
 
+  <!-- Right panel -->
+  <div id="right-panel">
+    <h2>Results</h2>
+    <ul id="places"></ul>
+    <button id="more">More results</button>
+  </div>
+
   <!-- Modal ajout restaurant -->
   <div class="modal-add-restaurant" id="modal">
 
@@ -75,14 +91,14 @@
 
   </div>
 
-
   <script src="assets/script/vendor.js"></script>
+  <script src="./assets/script/index.js"></script>
   <script src="assets/script/class/GoogleMap.js"></script>
   <script src="assets/script/class/Restaurant.js"></script>
   <script src="assets/script/class/ReviewGestion.js"></script>
   <script src="assets/script/class/RestaurantController.js"></script>
-  <script src="assets/script/app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </body>
 
 </html>

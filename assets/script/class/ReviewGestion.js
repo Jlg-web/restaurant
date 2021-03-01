@@ -59,6 +59,4 @@ class ReviewGestion {
         this.previousSiblings.forEach(elem => elem.classList.remove(className));
     }
 
-
-
 }
