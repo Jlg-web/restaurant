@@ -4,32 +4,9 @@ class RestaurantController {
     // Création d'un tableau restaurant
     // Une autre fonction d'affichage
 
-    constructor() {
-        // this.restaurants = [];
-        // console.log(this.restaurants);
-        this.keyRestaurant = "restaurant";
-        this.restaurants = localStorage.getItem(this.keyRestaurant);
-        // initialize();
-
-    }
-
-    //Méthode récupération restaurants
-    async getRestaurants() {
-
-        // return [];
-        const url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Restaurant%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCzFwWZ9ZZTlhTFhJc95JH-YT181mXx08I';
-        // let request = new Request('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCzFwWZ9ZZTlhTFhJc95JH-YT181mXx08I');
-        const response = await fetch(url, {mode: 'cors'});
-        return response;
-
-        // .then(function(response) {
-        //     this.restaurants = response.json();
-        //     console.log(this.restaurants);
-        // })
-
-        // const response = await fetch('assets/list-restaurant.json');
-        // return response.json();
-
+    constructor(googleMap) {
+        this.restaurants = [];
+        this.googleMap = googleMap;
     }
 
     // Méthode affichage restaurants
@@ -71,9 +48,8 @@ class RestaurantController {
         this.displayModal();
     }
 
+    //Affichage de la modale
     displayModal() {
-
-        
         //Nouvelle instance de ReviewGestion 
         let reviewGestion = new ReviewGestion();
         // Appel initRating
@@ -102,4 +78,65 @@ class RestaurantController {
         }
     }
 
+    // Récupération des restaurants
+    getRestaurants(centerMap) {
+        this.googleMap.placesService.nearbySearch({
+                location: centerMap,
+                radius: 380,
+                type: "restaurant"
+            },
+            (results, status) => {
+                if (status !== "OK") return;
+                this.createMarkers(results);
+            }
+        );
+    }
+
+    //Fonction create markers
+    createMarkers(places) {
+
+        const bounds = new this.googleMap.google.maps.LatLngBounds();
+        const placesList = document.querySelector(".content-restaurant");
+
+        function callback(place, status) {
+
+            if (status == this.googleMap.google.maps.places.PlacesServiceStatus.OK) {
+
+                //Récupération du bon li avec son id (document.geteelementbyid)
+                // // Ajout des caractéristiques
+                // const li = document.createElement("li");
+                // li.id = place.place_id;
+                // placesList.appendChild(li);
+                // recupRestoName = place.name;
+            }
+        }
+
+        for (let i = 0; i < places.length; i++) {
+            const place = places[i];
+            const request = {
+                placeId: place.place_id,
+                fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
+            };
+            this.googleMap.placesService.getDetails(request, callback.bind(this));
+            new this.googleMap.google.maps.Marker({
+                map: this.googleMap.map,
+                title: place.name,
+                position: place.geometry.location
+            });
+
+            //Nouvelle instance de ReviewGestion 
+            let reviewGestion = new ReviewGestion();
+            reviewGestion.initRating();
+            const li = document.createElement("li");
+            li.id = place.place_id;
+            placesList.appendChild(li);
+            const recupRestoName = place.name;
+            li.innerHTML =
+            ` 
+            <h3>${recupRestoName}</h3>
+            `
+            // bounds.extend(place.geometry.location);
+        }
+        // map.fitBounds(bounds);
+    }
 }

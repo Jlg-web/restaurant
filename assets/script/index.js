@@ -1,4 +1,4 @@
-let map, geocoder, service, infoWindow, lat, lng, panorama;
+let map, geocoder, infoWindow, lat, lng, panorama;
 
 const getUserPosition = async () => {
   const pos = await new Promise((resolve, reject) => {
@@ -55,24 +55,12 @@ const initMap = async function () {
 
   // ***Récupération des restaurants autour de l'utilisateur *** //
   // On récupère les restaurants autour de l'utilisateur grâce à nearbySearch()
-  service = new google.maps.places.PlacesService(map);
+  const placesService = new google.maps.places.PlacesService(map);
+  const googleMap = new GoogleMap(placesService, google, map);
+  const restaurants = new RestaurantController(googleMap);
 
-  // Récupération détails du restaurant
-  service.nearbySearch({
-      location: centerMap,
-      radius: 380,
-      type: "restaurant"
-    },
-    (results, status, pagination) => {
-      if (status !== "OK") return;
-      createMarkers(results, map);
-      // moreButton.disabled = !pagination.hasNextPage;
 
-      // if (pagination.hasNextPage) {
-      //   getNextPage = pagination.nextPage;
-      // }
-    }
-  );
+  restaurants.getRestaurants(centerMap);
 
   //Ecoute click map
   map.addListener("click", (e) => {
@@ -96,6 +84,7 @@ const initMap = async function () {
 
   });
 }
+
 
 
 //Fonction modal
@@ -127,66 +116,6 @@ for (let i = 0; i < close.length; i++) {
 }
 
 
-}
-
-//Fonction create markers
-function createMarkers(places, map) {
-
-  const bounds = new google.maps.LatLngBounds();
-  const placesList = document.querySelector(".content-restaurant");
-
-  service = new google.maps.places.PlacesService(map);
-
-  function callback(place, status) {
-
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-      //Récupération du bon li avec son id (document.geteelementbyid)
-      // // Ajout des caractéristiques
-      // const li = document.createElement("li");
-      // li.id = place.place_id;
-      // placesList.appendChild(li);
-      // recupRestoName = place.name;
-    }
-
-  }
-
-  for (let i = 0; i < places.length; i++) {
-
-
-    const place = places[i];
-
-    const request = {
-      placeId: place.place_id,
-      fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
-    };
-
-    service.getDetails(request, callback);
-
-    new google.maps.Marker({
-      map,
-      title: place.name,
-      position: place.geometry.location
-    });
-
-    //Nouvelle instance de ReviewGestion 
-    let reviewGestion = new ReviewGestion();
-    reviewGestion.initRating();
-
-    const li = document.createElement("li");
-    li.id = place.place_id;
-    placesList.appendChild(li);
-
-    recupRestoName = place.name;
-
-    li.innerHTML =
-      ` 
-    <h3>${recupRestoName}</h3>
-    `
-    bounds.extend(place.geometry.location);
-  }
-
-  map.fitBounds(bounds);
 }
 
 // Fonction add marker
