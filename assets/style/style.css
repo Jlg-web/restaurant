@@ -123,7 +123,7 @@ section {
 }
 
 /* Modal détails restaurant */
-.modal-details-restaurant {
+#modal-details-restaurant {
   position: absolute;
   background: white;
   z-index: 10;
@@ -136,7 +136,7 @@ section {
 
 }
 
-.modal-content-restaurant .close {
+#modal-content-restaurant .close {
   font-size: 1.2rem;
   position: absolute;
   right: 18px;
@@ -146,14 +146,14 @@ section {
   color: #afafaf;
 }
 
-.modal-content-restaurant h2 {
+#modal-content-restaurant h2 {
   margin-top: 3rem;
   font-size: 1.8rem;
   border-bottom: 1px solid #efefef;
   padding-bottom: .5rem;
 }
 
-.modal-content-restaurant textarea {
+#modal-content-restaurant textarea {
   margin-top: 1rem !important;
   resize: none;
 }

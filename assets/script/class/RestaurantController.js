@@ -5,6 +5,7 @@ class RestaurantController {
         this.googleMap = googleMap;
         this.modal = document.getElementById('modal');
         this.btnModal = document.getElementById("btn-modal");
+        this.modalDetails = document.getElementById("modal-details-restaurant");
     }
 
     addRestaurant() {
@@ -35,6 +36,10 @@ class RestaurantController {
     // Affichage - Apparition modal 
     showModal() {
         this.modal.style.display = "block";
+    }
+
+    showDetailsModal() {
+        this.modalDetails.style.display = "block";
     }
 
     // Récupération des restaurants
@@ -101,80 +106,20 @@ class RestaurantController {
             ` 
             <h3>${recupRestoName}</h3>
             <p> Moyenne du restaurant : ${restaurantAverage}</p>
-
             `
+            li.addEventListener("click", () => {
+                this.showDetailsModal();
+                const modalDetailsElement = document.getElementById("modal-details");
+                const modalDetailsButton = document.createElement("button");
+                modalDetailsButton.textContent = "Ajouter un commentaire";
+                modalDetailsElement.appendChild(modalDetailsButton);
+                modalDetailsButton.addEventListener("click", () => {
+                    console.log(place.place_id);
+                })
+            });
             // bounds.extend(place.geometry.location);
         }
         // map.fitBounds(bounds);
     }
 
-
-    //Affichage de la modale
-    // displayModal() {
-    //     //Nouvelle instance de ReviewGestion 
-    //     let reviewGestion = new ReviewGestion();
-    //     // Appel initRating
-    //     reviewGestion.initRating();
-
-    //     const modal = document.querySelector(".modal-details-restaurant");
-    //     const buttons = document.querySelectorAll(".btn-details");
-    //     const close = document.querySelectorAll(".close");
-
-    //     for (let i = 0; i < buttons.length; i++) {
-    //         let openModalBtn = buttons[i];
-    //         openModalBtn.addEventListener("click", function (event) {
-    //             event.preventDefault();
-    //             modal.style.display = "block";
-    //         });
-    //     }
-
-    //     for (let i = 0; i < close.length; i++) {
-    //         let closeModalBtn = close[i];
-    //         closeModalBtn.addEventListener("click", function (event) {
-    //             event.preventDefault();
-    //             modal.style.display = "none";
-    //             // Fonction Reset qui va retirer les eventListeners et retirer le vote HTML ("chaine de caractère")
-    //             // ex: star.addEventListener("mouseleave", removeStar);
-    //         });
-    //     }
-    // }
-
-
-
-    // Méthode affichage restaurants
-    // async addNewRestaurant() {
-
-    //     this.recupResto = await this.getRestaurants();
-
-    //     if (this.restaurants === null) {
-    //         localStorage.setItem(this.keyRestaurant, "[]");
-    //     }
-
-    //     const lsOutput = document.getElementById('lsOutput');
-    //     const restaurants = JSON.parse(localStorage.getItem(this.keyRestaurant));
-    //     console.log(restaurants);
-
-    //     if (restaurants === null) {
-    //         lsOutput.innerHTML = "Aucun restaurant";
-    //     } else {
-    //         lsOutput.innerHTML = `${restaurants}`;
-    //     }
-
-    //     const valueRestaurant = document.getElementById('restaurant-name').value;
-    //     restaurants.push(valueRestaurant);
-    //     localStorage.setItem(this.keyRestaurant, JSON.stringify(restaurants));
-
-    //     $('.content-restaurant').html(
-    //         this.recupResto.map(elmt => (
-    //             `
-    //             <div class="container-restaurant">
-    //               <img alt="${elmt.restaurantName}" src="${elmt.imgUrl}"></img>
-    //               <h2>${elmt.restaurantName}</h2>
-    //               <p>${elmt.address}</p>
-    //               <button id="btn-details" class="btn-details">Voir en détails</button>
-    //             </div>
-    //             `
-    //         )).join('')
-    //     );
-    // }
 }
