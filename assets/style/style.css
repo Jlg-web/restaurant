@@ -247,3 +247,20 @@ section {
   width: 50%;
   top: 290px;
 }
+
+.title-resto {
+  font-size: 20px;
+}
+
+.address-resto {
+  font-size: 14px;
+}
+
+.global-recup-resto {
+  border-bottom: 1px solid #ececec;
+  padding: 10px 0;
+}
+
+.moyenne-resto {
+  font-size: 17px;
+}

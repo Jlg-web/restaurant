@@ -1,6 +1,7 @@
 class ReviewGestion {
 
     constructor() {
+
         this.allStars = document.querySelectorAll(".fa-star");
         this.rating = document.querySelector(".rating");
         this.previousSiblings = '';

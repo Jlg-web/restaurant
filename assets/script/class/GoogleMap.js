@@ -6,7 +6,6 @@ class GoogleMap {
     this.bounds = null;
     this.placesService = placesService;
     this.google = google;
-
   }
 
   // Méthode addmarker (Ajout des markers restaurants)
