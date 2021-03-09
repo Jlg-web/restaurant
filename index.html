@@ -10,8 +10,14 @@
   <link rel="stylesheet" href="assets/style/style.css">
   <title>API</title>
 
-  <script> async function init() { await initMap()}</script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDovBDjarv0UQcJ7xfuw_ME0VoYvWNOe0w&libraries=places&callback=init" defer></script>
+  <script>
+    async function init() {
+      await initMap()
+    }
+  </script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDovBDjarv0UQcJ7xfuw_ME0VoYvWNOe0w&libraries=places&callback=init"
+    defer></script>
 
 </head>
 
@@ -21,17 +27,17 @@
   <!-- Liste des restaurant et map -->
   <section id="lsOutput" class="content-restaurant"></section>
   <!-- <section class="modal-details-restaurant"></section> -->
-    <!-- panorama -->
-    <!-- <div id="pano"></div> -->
+  <!-- panorama -->
+  <!-- <div id="pano"></div> -->
 
 
   <!-- MODAL DETAILS RESTAURANTS -->
   <div id="modal-details-restaurant">
     <div id="modal-details">
-      <div class="close">Fermer</div>
-
       <h2>Votre avis</h2>
-
+      <form action="" id="add-notice">
+        <textarea id="textarea-notice" name="textarea-notice" rows="5" cols="33"></textarea>
+      </form>
       <!-- <div class="star-container">
         <h3>nombre d'étoiles :</h3>
         <div class="star-symbol-container">
@@ -51,8 +57,10 @@
 
         </textarea>
       </div> -->
-
       <!-- <button class="btn-details">Poster mon avis</button> -->
+    </div>
+    <div class="recovery-notice">
+      <p></p>
     </div>
   </div>
 

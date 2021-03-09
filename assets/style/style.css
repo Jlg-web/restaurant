@@ -133,7 +133,12 @@ section {
   padding: 22px;
   min-width: 600px;
   display: none;
+  flex-basis: 50;
+}
 
+.recovery-notice {
+  padding: 12px;
+  font-size: 16px;
 }
 
 #modal-content-restaurant .close {
@@ -264,3 +269,5 @@ section {
 .moyenne-resto {
   font-size: 17px;
 }
+
+textarea{ resize:none;}
