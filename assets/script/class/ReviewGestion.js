@@ -49,7 +49,6 @@ class ReviewGestion {
         this.hoverStar.classList.add(className);
         this.previousSiblings = this.getPreviousSiblings(this.hoverStar);
         this.previousSiblings.forEach(elem => elem.classList.add(className));
-
     }
 
     removeStar(e) {
