@@ -1,53 +1,35 @@
 class RestaurantController {
 
     constructor(googleMap) {
+        this.modalAddRestaurantButton = document.createElement("button");
+        this.modalAddRestaurantElement = document.querySelector(".Add-restaurant-details");
         this.modalDetailsButton = document.createElement("button");
         this.modalDetailsElement = document.getElementById("modal-details");
         this.restaurants = [];
         this.googleMap = googleMap;
         this.modal = document.getElementById('modal');
-        this.btnModal = document.getElementById("btn-modal");
+        // this.btnModal = document.getElementById("btn-modal");
         this.modalDetails = document.getElementById("modal-details-restaurant");
         this.overlay = document.getElementById("overlay");
+        this.placesList = document.querySelector(".content-restaurant ul");
     }
 
-    // Ajout restaurant
-    addRestaurant() {
-
-        const newRestaurant = {
-            name: document.getElementById('restaurant-name').value,
-            formatted_address: document.getElementById('restaurant-address').value
-        }
-
-        this.restaurants.push(newRestaurant);
-        document.forms[0].reset();
-
-        this.restaurants.forEach(restaurant => {
-            console.log(restaurant);
-            outPut.innerHTML +=
-                `
-          <div class="global-recup-resto">
-            <h3 class="title-resto">${restaurant.name}</h3>
-            <p class="address-resto">${restaurant.formatted_address}</p>
-          </div>
-          `
-        });
-
-        modal.style.display = "none";
-        this.closeModal();
-
-    }
-
-    //Ajout avis
+    //Ajout des commentaires
     addComment(placeId) {
         const restaurant = this.restaurants.find(r => r.place_id === placeId);
+        let authorName = document.getElementById('author-name').value;
         let textareaComment = document.getElementById('textarea-comment').value;
         let rating = document.getElementById('note').value;
+        let imgDefault = document.getElementById('img-author').src.value;
+        imgDefault = "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png";
+
         restaurant.reviews.push({
             text: textareaComment,
             rating: rating,
-
+            author_name: authorName,
+            profile_photo_url: imgDefault
         });
+
         console.log(this.restaurants);
         document.forms[0].reset();
         this.displayComments(restaurant.reviews);
@@ -61,29 +43,139 @@ class RestaurantController {
         comments.forEach(comment => {
             recoveryComment.innerHTML +=
                 `
-            <div class="recovery-comment">
-            <img src="${comment.profile_photo_url}"></img>
-            <h3>${comment.author_name}</h3>
-            <p class="rating">${comment.rating}</p>
-            <p class="time-description">${comment.relative_time_description}</p>
-            <p>${comment.text}</p>
-            </div>
-            `;
+                <div class="recovery-comment">
+                <img id='img-author' src="${comment.profile_photo_url}"></img>
+                <h3>${comment.author_name}</h3>
+                <p class="rating">${comment.rating}</p>
+                <p class="time-description">${comment.relative_time_description}</p>
+                <p>${comment.text}</p>
+                </div>
+                `;
+        });
+    }
+
+    // Affichage restaurant
+    displayRestaurant(place) {
+
+        // const placesList = document.querySelector(".content-restaurant ul");
+        this.restaurants.push(place);
+
+        new this.googleMap.google.maps.Marker({
+            map: this.googleMap.map,
+            title: place.name,
+            position: {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+            },
         });
 
+        const li = document.createElement("li");
+        li.id = place.place_id;
+        this.placesList.appendChild(li);
+    
+
+        if(place.rating > 3 && place.rating < 4) {
+            console.log(place.rating);
+        }
+
+        li.classList = "value1";
+
+        li.innerHTML =
+            ` 
+                <h3>${place.name}</h3>
+                <p class="moyenne">Moyenne du restaurant : ${place.rating}</p>
+                <p>${place.formatted_address}</p>
+                `
+                // console.log(place.rating);
+        // Click liste restaurant
+        li.addEventListener("click", () => {
+            this.displayRestaurantModal(place);
+        });
+    }
+
+    // Ajout restaurant
+    addRestaurant(latLng) {
+
+        const newRestaurant = {
+            name: document.getElementById('restaurant-name').value,
+            formatted_address: document.getElementById('restaurant-address').value,
+            geometry: {
+                location: latLng
+            }
+        }
+
+        this.restaurants.push(newRestaurant);
+        console.log(this.restaurants);
+
+        document.forms[0].reset();
+
+        this.displayRestaurant(newRestaurant);
+
+        modal.style.display = "none";
+        this.closeModal();
     }
 
     // Affichage - Apparition modal 
-    showModal() {
+    showModal(latLng) {
+
         this.modal.style.display = "block";
         this.overlay.style.display = "block";
-    }
+        this.modalAddRestaurantElement.innerHTML =
+            `
+        <div class="modal-content">
+        <p id="close-add-restaurant" class="close-modal close">Fermer la modale</p>
+        <h3>Ajouter un restaurant</h3>
+  
+        <form action="" id="form-add-restaurant" onsubmit="return false">
+          <div class="flex flex-column m-b-16">
+            <label for="text">Nom du restaurant</label>
+            <input id="restaurant-name" type="text">
+          </div>
+          <div class="flex flex-column m-b-16">
+            <label for="text">Adresse du restaurant</label>
+            <input type="text" id="restaurant-address" disabled>
+          </div>
+          <!-- <button id="btn-modal" href="#" type="submit" class="btn m-t-16 mr btn-blue"
+            form="form-add-restaurant">Ajouter</button>
+          <button id="btn-modal-cancel" href="#" type="submit" class="btn btn-red"
+            form="form-add-restaurant">Annuler</button> -->
+        </form>
+  
+      </div>
+    `
 
+        this.createBtnAddRestaurant();
+        this.modalAddRestaurantButton.addEventListener("click", () => {
+            this.addRestaurant(latLng);
+
+        })
+
+    }
 
     // Fermeture de la modale
     closeModal() {
         this.modalDetails.style.display = "none";
         this.overlay.style.display = "none";
+    }
+
+    closeModalAddRestaurant() {
+        const closeAddRestaurant = document.getElementById("close-add-restaurant");
+        const cancelBtn = document.getElementById("btn-modal-cancel");
+
+        closeAddRestaurant.addEventListener("click", () => {
+            this.modal.style.display = "none";
+            this.overlay.style.display = "none";
+        })
+
+        this.overlay.addEventListener("click", () => {
+            this.overlay.style.display = "none";
+            this.modal.style.display = "none";
+        });
+
+        // cancelBtn.addEventListener("click", () => {
+        //     this.overlay.style.display = "none";
+        //     this.modal.style.display = "none";
+        // })
     }
 
     // Affichage de la modale
@@ -109,8 +201,16 @@ class RestaurantController {
     // Création bouton
     createBtn() {
         this.modalDetailsButton.classList.add("btn");
+        this.modalDetailsButton.classList.add("btn-blue");
         this.modalDetailsButton.textContent = "Rédiger un avis";
         this.modalDetailsElement.appendChild(this.modalDetailsButton);
+    }
+
+    createBtnAddRestaurant() {
+        this.modalAddRestaurantButton.classList.add("btn");
+        this.modalAddRestaurantButton.classList.add("btn-blue");
+        this.modalAddRestaurantButton.textContent = "Ajouter(btnjs)";
+        this.modalAddRestaurantElement.appendChild(this.modalAddRestaurantButton);
     }
 
     // Panorama
@@ -126,20 +226,18 @@ class RestaurantController {
         );
     }
 
-
-    
     displayRestaurantModal(place) {
-
         this.modalDetailsElement.innerHTML =
             ` 
-        <p id="close" class="close-modal">Fermer la modale</p>
+        <p id="close" class="close-modal close">Fermer la modale</p>
         <h3 class="title-resto">${place.name}</h3>
         <p class="address-resto">${place.formatted_address}</p>
         <div id="pano"></div>
         <h3>Votre avis</h3>
         <input type="number" id="note" min="1" max="5"></input>
         <form action="" id="add-notice">
-            <textarea id="textarea-comment" name="textarea-comment" rows="5" cols="33"></textarea>
+            <input type="text" id="author-name" name="" placeholder="Votre nom"></input>
+            <textarea id="textarea-comment" name="textarea-comment" rows="5" cols="33" placeholder="Votre commentaire"></textarea>
         </form>
         `
         this.displayPanorama(place);
@@ -148,7 +246,6 @@ class RestaurantController {
         this.createBtn();
 
         const close = document.getElementById("close");
-
         close.addEventListener("click", () => {
             this.closeModal();
         })
@@ -163,45 +260,8 @@ class RestaurantController {
         })
     }
 
-
-
-
-    // Affichage restaurant
-    displayRestaurant(place, status) {
-
-        if (status == this.googleMap.google.maps.places.PlacesServiceStatus.OK) {
-
-            this.restaurants.push(place);
-            const placesList = document.querySelector(".content-restaurant");
-
-            new this.googleMap.google.maps.Marker({
-                map: this.googleMap.map,
-                title: place.name,
-                position: place.geometry.location
-            });
-
-            const li = document.createElement("li");
-            li.id = place.place_id;
-            placesList.appendChild(li);
-
-            li.innerHTML =
-                ` 
-                <h3>${place.name}</h3>
-                <p class="moyenne">Moyenne du restaurant : ${place.rating}</p>
-                <p>${place.formatted_address}</p>
-                `
-
-            // Click liste restaurant
-            li.addEventListener("click", () => {
-                this.displayRestaurantModal(place);
-            });
-        }
-    }
-
     //Fonction create markers
     createMarkers(places) {
-
-        const bounds = new this.googleMap.google.maps.LatLngBounds();
 
         for (let i = 0; i < places.length; i++) {
 
@@ -212,10 +272,71 @@ class RestaurantController {
                 fields: ['name', 'rating', 'formatted_address', 'geometry', 'place_id', 'review']
             };
 
-            this.googleMap.placesService.getDetails(request, this.displayRestaurant.bind(this));
-            // bounds.extend(place.geometry.location);
+            this.googleMap.placesService.getDetails(request, (place, status) => {
+                if (status == this.googleMap.google.maps.places.PlacesServiceStatus.OK) {
+                    this.displayRestaurant(place);
+                }
+            });
         }
-        // map.fitBounds(bounds);
+    }
+
+    // Filtrer restaurants
+    filterRestaurants() {
+
+        const choices = document.querySelectorAll(".choice");
+        const start = document.getElementById("start");
+        const finish = document.getElementById("finish");
+
+        console.log(start.value, finish.value);
+        console.log(parseInt(start.value, 10), parseInt(finish.value, 10));
+
+        if(start.value === "3" && finish.value === "4") {
+
+        }
+
+
+        // if (start.value === "1" && finish.value === "2") {
+        //     console.log('afficher les restaurant entre 1 et 2 étoiles');
+        // } else if (start.value === "1" && finish.value === "3") {
+        //     console.log('afficher les restaurant entre 1 et 3 étoiles');
+        // } else if (start.value === "1" && finish.value === "4") {
+        //     console.log('afficher les restaurant entre 1 et 4 étoiles');
+        // } else if (start.value === "1" && finish.value === "5") {
+        //     console.log('afficher les restaurant entre 1 et 5 étoiles');
+        // } else if (start.value === "2" && finish.value === "3") {
+        //     console.log('afficher les restaurant entre 2 et 3 étoiles');
+        // } else if (start.value === "2" && finish.value === "4") {
+        //     console.log('afficher les restaurant entre 2 et 4 étoiles');
+        // } else if (start.value === "2" && finish.value === "5") {
+        //     console.log('afficher les restaurant entre 2 et 5 étoiles');
+        // } else if (start.value === "3" && finish.value === "4") {
+        //     console.log('afficher les restaurant entre 3 et 4 étoiles');
+        // } else if (start.value === "3" && finish.value === "5") {
+        //     console.log('afficher les restaurant entre 3 et 5 étoiles');
+        // } else if (start.value === "4" && finish.value === "5") {
+        //     console.log('afficher les restaurant entre 4 et 5 étoiles');
+        // }
+
+        // for (let i = 0; i < choices.length; i++) {
+        // choices[i].addEventListener("click", (e) => {
+        //     e.preventDefault();
+        //     const filter = e.target.dataset.filter;
+        //     // console.log(filter);
+
+        //     this.restaurants.forEach((choice) => {
+        //         if (filter == "all") {
+        //             choice.style.display = "block";
+        //         } else {
+        //             if (choice.classList.contains(filter)) {
+        //                 choice.style.display = "block";
+        //             } else {
+        //                 choice.style.display = "none";
+        //             }
+        //         }
+        //     })
+        // });
+        // }
+
     }
 
 }

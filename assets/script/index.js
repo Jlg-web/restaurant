@@ -3,6 +3,7 @@ let map, geocoder, infoWindow, lat, lng, panorama;
 let restaurants = [];
 const outPut = document.getElementById("lsOutput");
 const btnModal = document.getElementById("btn-modal");
+const btnFilter = document.getElementById("btn-filter");
 
 const getUserPosition = async () => {
   const pos = await new Promise((resolve, reject) => {
@@ -36,15 +37,6 @@ const initMap = async function () {
     lng: 2.5231119
   };
 
-  //PANORAMA STREET VIEW
-  // const sv = new google.maps.StreetViewService();
-  // panorama = new google.maps.StreetViewPanorama(document.getElementById("pano"));
-
-  // sv.getPanorama({
-  //   location: city,
-  //   radius: 50
-  // }, processSVData);
-
   // On affiche la map + les options
   map = new google.maps.Map(document.getElementById("map"), options);
 
@@ -62,19 +54,18 @@ const initMap = async function () {
   const restaurants = new RestaurantController(googleMap);
 
   restaurants.getRestaurants(centerMap);
-  btnModal.addEventListener("click", () => {
-    restaurants.addRestaurant();
-  });
 
+  //Filter
+  btnFilter.addEventListener("click", () => {
+    restaurants.filterRestaurants();
+  });
 
   //Ecoute click map
   map.addListener("click", (e) => {
-    placeMarkerAndPanTo(e.latLng, map);
-    restaurants.showModal();
-    // sv.getPanorama({
-    //   location: e.latLng,
-    //   radius: 50
-    // }, processSVData);
+    restaurants.showModal(e.latLng);
+    geocoder = new google.maps.Geocoder();
+    geocodeLatLng(e, geocoder, map);
+    restaurants.closeModalAddRestaurant();
   });
 
   //Ecoute click marker
@@ -89,30 +80,21 @@ const initMap = async function () {
   });
 }
 
-// Fonction add marker
-function placeMarkerAndPanTo(latLng, map) {
-  new google.maps.Marker({
-    position: latLng,
-    map: map,
+//Gecoding inversé
+function geocodeLatLng(e, geocoder) {
+
+  const inputRestaurantAddress = document.getElementById("restaurant-address");
+
+  geocoder.geocode({
+    location: e.latLng
+  }, function (results, status) {
+    if(status === 'OK') {
+      if(results[0]) {
+        // console.log(results[0].formatted_address);
+        inputRestaurantAddress.value = results[0].formatted_address;
+      }
+    }
   });
-  map.panTo(latLng);
+
 }
 
-// Fonction Panorama
-// function processSVData(data, status) {
-
-//   if (status === "OK") {
-//     const location = data.location;
-
-//     panorama.setPano(location.pano);
-//     panorama.setPov({
-//       heading: 270,
-//       pitch: 0,
-//     });
-
-//     panorama.setVisible(true);
-
-//   } else {
-//     console.error("Street View data not found for this location.");
-//   }
-// }
