@@ -14,6 +14,19 @@ class RestaurantController {
         this.placesList = document.querySelector(".content-restaurant ul");
     }
 
+
+    filter(startValue, finishValue) {
+        const filteredRestaurants = this.restaurants.filter(restaurant => restaurant.rating >= startValue && restaurant.rating <= finishValue);
+        console.log(filteredRestaurants);
+
+        this.placesList.innerHTML = "";
+
+        for (let i = 0; i < filteredRestaurants.length; i++) {
+            this.displayRestaurant(filteredRestaurants[i]);
+        }
+
+    }
+
     //Ajout des commentaires
     addComment(placeId) {
         const restaurant = this.restaurants.find(r => r.place_id === placeId);
@@ -54,11 +67,20 @@ class RestaurantController {
         });
     }
 
+
+    // Create content
+    createContent(place) {
+        return ` 
+            <h3>${place.name}</h3>
+            <p class="moyenne">Moyenne du restaurant : ${place.rating}</p>
+            <p>${place.formatted_address}</p>
+        `
+    }
+
     // Affichage restaurant
     displayRestaurant(place) {
 
-        // const placesList = document.querySelector(".content-restaurant ul");
-        this.restaurants.push(place);
+
 
         new this.googleMap.google.maps.Marker({
             map: this.googleMap.map,
@@ -69,29 +91,36 @@ class RestaurantController {
             },
         });
 
-        const li = document.createElement("li");
-        li.id = place.place_id;
-        this.placesList.appendChild(li);
-    
+        const galleryItems = document.createElement("li");
 
-        if(place.rating > 3 && place.rating < 4) {
-            console.log(place.rating);
-        }
+        galleryItems.id = place.place_id;
+        this.placesList.appendChild(galleryItems);
+        galleryItems.classList = "gallery-item";
 
-        li.classList = "value1";
+        galleryItems.innerHTML = this.createContent(place);
 
-        li.innerHTML =
-            ` 
-                <h3>${place.name}</h3>
-                <p class="moyenne">Moyenne du restaurant : ${place.rating}</p>
-                <p>${place.formatted_address}</p>
-                `
-                // console.log(place.rating);
         // Click liste restaurant
-        li.addEventListener("click", () => {
+        galleryItems.addEventListener("click", () => {
             this.displayRestaurantModal(place);
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Ajout restaurant
     addRestaurant(latLng) {
@@ -274,6 +303,7 @@ class RestaurantController {
 
             this.googleMap.placesService.getDetails(request, (place, status) => {
                 if (status == this.googleMap.google.maps.places.PlacesServiceStatus.OK) {
+                    this.restaurants.push(place);
                     this.displayRestaurant(place);
                 }
             });
@@ -283,16 +313,16 @@ class RestaurantController {
     // Filtrer restaurants
     filterRestaurants() {
 
-        const choices = document.querySelectorAll(".choice");
-        const start = document.getElementById("start");
-        const finish = document.getElementById("finish");
+        // const choices = document.querySelectorAll(".choice");
+        // const start = document.getElementById("start");
+        // const finish = document.getElementById("finish");
 
-        console.log(start.value, finish.value);
-        console.log(parseInt(start.value, 10), parseInt(finish.value, 10));
+        // console.log(start.value, finish.value);
+        // console.log(parseInt(start.value, 10), parseInt(finish.value, 10));
 
-        if(start.value === "3" && finish.value === "4") {
+        // if (start.value === "3" && finish.value === "4") {
 
-        }
+        // }
 
 
         // if (start.value === "1" && finish.value === "2") {

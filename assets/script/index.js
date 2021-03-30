@@ -57,7 +57,16 @@ const initMap = async function () {
 
   //Filter
   btnFilter.addEventListener("click", () => {
-    restaurants.filterRestaurants();
+
+    const startValue = parseInt(start.value, 10);
+    const finishValue = parseInt(finish.value, 10);
+
+    if (startValue !== finishValue) {
+      console.log(`Start value = ${startValue}, Finish value = ${finishValue}`);
+    } else if (startValue === finishValue) {
+      console.log("Choisissez 2 valeurs différents.");
+    }
+    restaurants.filter(startValue, finishValue);
   });
 
   //Ecoute click map
@@ -88,8 +97,8 @@ function geocodeLatLng(e, geocoder) {
   geocoder.geocode({
     location: e.latLng
   }, function (results, status) {
-    if(status === 'OK') {
-      if(results[0]) {
+    if (status === 'OK') {
+      if (results[0]) {
         // console.log(results[0].formatted_address);
         inputRestaurantAddress.value = results[0].formatted_address;
       }
@@ -97,4 +106,3 @@ function geocodeLatLng(e, geocoder) {
   });
 
 }
-

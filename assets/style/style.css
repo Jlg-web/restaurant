@@ -454,3 +454,25 @@ section {
 .select-style select:focus {
   outline: none;
 }
+
+
+
+
+.gallery-item.hide {
+  display: none;
+}
+
+.gallery-item.show {
+  animation: fadeIn .5s ease;
+}
+
+@keyframes fadeIn {
+
+  0% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 1;
+  }
+}
