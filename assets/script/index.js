@@ -4,6 +4,11 @@ let restaurants = [];
 const outPut = document.getElementById("lsOutput");
 const btnModal = document.getElementById("btn-modal");
 const btnFilter = document.getElementById("btn-filter");
+const btnCancel = document.getElementById("btn-cancel");
+const btnToggle = document.getElementById("btn-toggle");
+const containerToggleBtn = document.querySelector(".toggle-button-list");
+const containerMap = document.querySelector(".map");
+const btnToggleTxt = document.querySelector("#btn-toggle p");
 
 const getUserPosition = async () => {
   const pos = await new Promise((resolve, reject) => {
@@ -16,6 +21,7 @@ const getUserPosition = async () => {
 
 //Initialisation MAP
 const initMap = async function () {
+
 
   // *** Récupération Latitude et longitude de l'utilisateur grâce à navigator.geolocation *** //
   await getUserPosition();
@@ -55,19 +61,38 @@ const initMap = async function () {
 
   restaurants.getRestaurants(centerMap);
 
-  //Filter
+
+
+  //Appliquer les filtres
   btnFilter.addEventListener("click", () => {
-
-    const startValue = parseInt(start.value, 10);
-    const finishValue = parseInt(finish.value, 10);
-
-    if (startValue !== finishValue) {
-      console.log(`Start value = ${startValue}, Finish value = ${finishValue}`);
-    } else if (startValue === finishValue) {
-      console.log("Choisissez 2 valeurs différents.");
-    }
+    let startValue = parseInt(start.value, 10);
+    let finishValue = parseInt(finish.value, 10);
     restaurants.filter(startValue, finishValue);
   });
+
+  //Retirer les filtres
+  btnCancel.addEventListener("click", () => {
+    const selectStart = document.querySelector("select#start");
+    const selectFinish = document.querySelector("select#finish");
+    restaurants.cancelFilter(selectStart, selectFinish);
+  })
+
+
+  // Toggle list
+  btnToggle.addEventListener("click", () => {
+    if(outPut.style.left === "-100%") {
+      outPut.style.left = "0";
+      containerToggleBtn.style.right = "68.3%";
+      containerMap.style.width = "70%";
+      btnToggleTxt.innerHTML = "Hide";
+    } else {
+      containerToggleBtn.classList.add = "toggle-button-arrow";
+      outPut.style.left = "-100%"
+      containerToggleBtn.style.right = "inherit";
+      containerMap.style.width = "100%";
+      btnToggleTxt.innerHTML = "Show";
+    }
+  })
 
   //Ecoute click map
   map.addListener("click", (e) => {

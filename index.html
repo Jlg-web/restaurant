@@ -7,7 +7,7 @@
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-  <link rel="stylesheet" href="assets/style/style.css">
+  <link rel="stylesheet" href="assets/style/main.css">
   <title>API</title>
   <script>
     async function init() {
@@ -25,24 +25,26 @@
   <section id="lsOutput" class="content-restaurant">
 
     <div class="select-options">
+
       <label for="select">Filtrer par notes</label>
 
-
       <div class="select-style">
-        <select id="start" name="start">
-          <option class="choice active" value="1" data-filter="1">1 étoiles</option>
-          <option class="choice" value="2" data-filter="2">2 étoiles</option>
-          <option class="choice" value="3" data-filter="3">3 étoiles</option>
-          <option class="choice" value="4" data-filter="4">4 étoiles</option>
-          <option class="choice" value="5" data-filter="5">5 étoiles</option>
+        <select class="select-element" id="start" name="start">
+          <option selected value="0">Note min</option>
+          <option class="choice" value="1">1 étoile</option>
+          <option class="choice" value="2">2 étoiles</option>
+          <option class="choice" value="3">3 étoiles</option>
+          <option class="choice" value="4">4 étoiles</option>
+          <option class="choice" value="5">5 étoiles</option>
         </select>
 
-        <select id="finish" name="finish">
-          <option class="choice" value="1" data-filter="1">1 étoiles</option>
-          <option class="choice" value="2" data-filter="2">2 étoiles</option>
-          <option class="choice" value="3" data-filter="3">3 étoiles</option>
-          <option class="choice" value="4" data-filter="4">4 étoiles</option>
-          <option class="choice" value="5" data-filter="5">5 étoiles</option>
+        <select class="select-element" id="finish" name="finish">
+          <option selected value="0">Note max</option>
+          <option class="choice" value="1">1 étoile</option>
+          <option class="choice" value="2">2 étoiles</option>
+          <option class="choice" value="3">3 étoiles</option>
+          <option class="choice" value="4">4 étoiles</option>
+          <option class="choice" value="5">5 étoiles</option>
         </select>
       </div>
 
@@ -50,12 +52,19 @@
 
       <div class="btn-filter">
         <a id="btn-filter" href="#" class="btn btn-blue">Filtrer</a>
-        <a href="#" class="btn btn-red">Annuler</a>
+        <a id="btn-cancel" href="#" class="btn btn-red">Réinitialiser</a>
       </div>
+
     </div>
 
     <ul></ul>
   </section>
+
+  <div class="toggle-button-list">
+    <button id="btn-toggle">
+      <p>Hide</p>
+    </button>
+  </div>
 
   <!-- MODAL DETAILS RESTAURANTS -->
   <div class="overlay" id="overlay"></div>
@@ -66,13 +75,6 @@
   </div>
 
   <div id="map" class="map"></div>
-
-  <!-- Right panel -->
-  <div id="right-panel">
-    <h2>Results</h2>
-    <ul id="places"></ul>
-    <button id="more">More results</button>
-  </div>
 
   <!-- Modal ajout restaurant -->
   <div class="modal-add-restaurant Add-restaurant-details" id="modal">

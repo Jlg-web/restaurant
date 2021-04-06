@@ -1,0 +1,251 @@
+body,
+html {
+  font-family: sans-serif;
+  font-size: 62.5%;
+}
+
+
+
+h3 {
+  font-size: 20px;
+}
+
+textarea {
+  resize: none;
+}
+
+#lsOutput {
+  left: 0;
+}
+
+/* Section liste restaurants */
+.content-restaurant {
+  position: absolute;
+  overflow: scroll;
+  height: 100vh;
+}
+
+.content-restaurant li {
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ececec;
+  padding-left: 14px;
+
+  &:hover {
+    h3::after {
+        width: 32px;
+    }
+  }
+}
+
+.content-restaurant li h3 {
+  margin-bottom: 26px;
+  color: #222;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    background: #2196f3;
+    width: 8px;
+    height: 3px;
+    left: 0;
+    bottom: -16px;
+    transition: .2s ease-in-out;
+  }
+}
+
+.content-restaurant li p {
+  color: #868686;
+}
+
+.content-restaurant li:hover {
+  // background: #f9f9f9;
+}
+
+/* Section map */
+.map {
+  width: 70%;
+  height: 100vh;
+  right: 0;
+  position: absolute;
+}
+
+#pano {
+  background-color: rgb(229, 227, 223);
+  overflow: hidden;
+  height: 392px;
+  z-index: 9999;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+#note {
+  margin-bottom: 12px;
+}
+
+.rating {
+  margin-left: 0.35rem;
+  color: #ffb326;
+}
+
+.time-description {
+  color: #aeaeae;
+  margin-bottom: 8px;
+}
+
+.recovery-comment {
+  font-size: 16px;
+}
+
+.recovery-comment div {
+  border-bottom: 1px solid #ececec;
+  padding: 20px;
+}
+
+.recovery-comment div h3 {
+  font-size: 14px;
+}
+
+.recovery-comment div p {
+  font-size: 13px;
+  line-height: 17px;
+}
+
+.recovery-comment img {
+  width: 48px;
+}
+
+.recovery-comment div:last-child {
+  border-bottom: none;
+}
+
+section {
+  position: absolute;
+  flex-direction: column;
+  width: 30%;
+  background: white;
+  z-index: 10;
+  margin-top: 0;
+  display: flex;
+}
+
+#form-add-restaurant input {
+  font-size: 12px;
+}
+
+#restaurant-address {
+  background: #e6e6e6;
+  color: #a4a4a4;
+}
+
+#restaurant-address .moyenne {
+  margin-bottom: 3px;
+}
+
+.container-restaurant {
+  padding: 2rem;
+}
+
+.container-restaurant h2 {
+  font-size: 2.4rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.container-restaurant p {
+  font-size: 1.6rem;
+  color: #545454;
+}
+
+#textarea-comment {
+  width: 100%;
+  min-height: 140px;
+}
+
+.star-container {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.star-container h3 {
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+}
+
+.star-container .star-symbol-container {
+  background: #eaeaea;
+  padding: .6rem;
+  margin-right: .5rem;
+  margin-bottom: 1.2rem;
+}
+
+.fa-star {
+  color: #c9c9c9;
+}
+
+.fa-star:hover {
+  cursor: pointer;
+}
+
+.open-modal {
+  display: block;
+}
+
+.comm-container h3 {
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+  font-weight: 500;
+}
+
+.name-modal-restaurant {
+  font-size: 2rem;
+}
+
+.global-recup-resto {
+  border-bottom: 1px solid #ececec;
+  padding: 10px 0;
+}
+
+.moyenne-resto {
+  font-size: 17px;
+}
+
+.select-options {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 12px 43px 22px;
+  background-color: #f5f5f5;
+}
+
+.select-options label {
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+
+.select-style select {
+  padding: 12px;
+  cursor: pointer;
+  width: 122px;
+  border: none;
+  margin-right: 5px;
+  margin-bottom: 4px;
+}
+.select-style select:focus {
+  outline: none;
+}
+
+.gallery-item.hide {
+  display: none;
+}
+
+.gallery-item.show {
+  animation: fadeIn .5s ease;
+}

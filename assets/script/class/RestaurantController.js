@@ -8,23 +8,27 @@ class RestaurantController {
         this.restaurants = [];
         this.googleMap = googleMap;
         this.modal = document.getElementById('modal');
-        // this.btnModal = document.getElementById("btn-modal");
         this.modalDetails = document.getElementById("modal-details-restaurant");
-        this.overlay = document.getElementById("overlay");
+        this.overlay = document.getElementById("overlay")
         this.placesList = document.querySelector(".content-restaurant ul");
     }
 
-
+    // FILTRES
     filter(startValue, finishValue) {
         const filteredRestaurants = this.restaurants.filter(restaurant => restaurant.rating >= startValue && restaurant.rating <= finishValue);
-        console.log(filteredRestaurants);
-
         this.placesList.innerHTML = "";
-
         for (let i = 0; i < filteredRestaurants.length; i++) {
             this.displayRestaurant(filteredRestaurants[i]);
         }
+    }
 
+    cancelFilter(selectStart, selectFinish) {
+        this.placesList.innerHTML = "";
+        for (let i = 0; i < this.restaurants.length; i++) {
+            this.displayRestaurant(this.restaurants[i]);
+        }
+        selectStart.selectedIndex = 0;
+        selectFinish.selectedIndex = 0;
     }
 
     //Ajout des commentaires
@@ -59,7 +63,7 @@ class RestaurantController {
                 <div class="recovery-comment">
                 <img id='img-author' src="${comment.profile_photo_url}"></img>
                 <h3>${comment.author_name}</h3>
-                <p class="rating">${comment.rating}</p>
+                <p class="rating">${comment.rating} étoiles</p>
                 <p class="time-description">${comment.relative_time_description}</p>
                 <p>${comment.text}</p>
                 </div>
@@ -72,16 +76,13 @@ class RestaurantController {
     createContent(place) {
         return ` 
             <h3>${place.name}</h3>
-            <p class="moyenne">Moyenne du restaurant : ${place.rating}</p>
+            <p class="moyenne">Moyenne du restaurant : ${place.rating} étoiles</p>
             <p>${place.formatted_address}</p>
-        `
+            `
     }
 
     // Affichage restaurant
     displayRestaurant(place) {
-
-
-
         new this.googleMap.google.maps.Marker({
             map: this.googleMap.map,
             title: place.name,
@@ -92,35 +93,17 @@ class RestaurantController {
         });
 
         const galleryItems = document.createElement("li");
-
         galleryItems.id = place.place_id;
         this.placesList.appendChild(galleryItems);
         galleryItems.classList = "gallery-item";
-
         galleryItems.innerHTML = this.createContent(place);
 
         // Click liste restaurant
         galleryItems.addEventListener("click", () => {
             this.displayRestaurantModal(place);
         });
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Ajout restaurant
     addRestaurant(latLng) {
@@ -174,9 +157,9 @@ class RestaurantController {
     `
 
         this.createBtnAddRestaurant();
+
         this.modalAddRestaurantButton.addEventListener("click", () => {
             this.addRestaurant(latLng);
-
         })
 
     }
@@ -240,6 +223,13 @@ class RestaurantController {
         this.modalAddRestaurantButton.classList.add("btn-blue");
         this.modalAddRestaurantButton.textContent = "Ajouter(btnjs)";
         this.modalAddRestaurantElement.appendChild(this.modalAddRestaurantButton);
+    }
+
+    createBtnCancel() {
+        this.modalRestaurantCancelButton.classList.add("btn");
+        this.modalRestaurantCancelButton.classList.add("btn-red");
+        this.modalRestaurantCancelButton.textContent = "Annuler(btnjs)";
+        this.modalCancelRestaurantElement.appendChild(this.modalRestaurantCancelButton);
     }
 
     // Panorama
@@ -308,65 +298,6 @@ class RestaurantController {
                 }
             });
         }
-    }
-
-    // Filtrer restaurants
-    filterRestaurants() {
-
-        // const choices = document.querySelectorAll(".choice");
-        // const start = document.getElementById("start");
-        // const finish = document.getElementById("finish");
-
-        // console.log(start.value, finish.value);
-        // console.log(parseInt(start.value, 10), parseInt(finish.value, 10));
-
-        // if (start.value === "3" && finish.value === "4") {
-
-        // }
-
-
-        // if (start.value === "1" && finish.value === "2") {
-        //     console.log('afficher les restaurant entre 1 et 2 étoiles');
-        // } else if (start.value === "1" && finish.value === "3") {
-        //     console.log('afficher les restaurant entre 1 et 3 étoiles');
-        // } else if (start.value === "1" && finish.value === "4") {
-        //     console.log('afficher les restaurant entre 1 et 4 étoiles');
-        // } else if (start.value === "1" && finish.value === "5") {
-        //     console.log('afficher les restaurant entre 1 et 5 étoiles');
-        // } else if (start.value === "2" && finish.value === "3") {
-        //     console.log('afficher les restaurant entre 2 et 3 étoiles');
-        // } else if (start.value === "2" && finish.value === "4") {
-        //     console.log('afficher les restaurant entre 2 et 4 étoiles');
-        // } else if (start.value === "2" && finish.value === "5") {
-        //     console.log('afficher les restaurant entre 2 et 5 étoiles');
-        // } else if (start.value === "3" && finish.value === "4") {
-        //     console.log('afficher les restaurant entre 3 et 4 étoiles');
-        // } else if (start.value === "3" && finish.value === "5") {
-        //     console.log('afficher les restaurant entre 3 et 5 étoiles');
-        // } else if (start.value === "4" && finish.value === "5") {
-        //     console.log('afficher les restaurant entre 4 et 5 étoiles');
-        // }
-
-        // for (let i = 0; i < choices.length; i++) {
-        // choices[i].addEventListener("click", (e) => {
-        //     e.preventDefault();
-        //     const filter = e.target.dataset.filter;
-        //     // console.log(filter);
-
-        //     this.restaurants.forEach((choice) => {
-        //         if (filter == "all") {
-        //             choice.style.display = "block";
-        //         } else {
-        //             if (choice.classList.contains(filter)) {
-        //                 choice.style.display = "block";
-        //             } else {
-        //                 choice.style.display = "none";
-        //             }
-        //         }
-        //     })
-        // });
-        // }
-
     }
 
 }
