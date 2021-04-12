@@ -1,60 +1,29 @@
 class GoogleMap {
 
-  constructor(placesService, google, map) {
-    this.btnDetails = document.getElementById("btn-details");
-    this.map = map;
-    this.bounds = null;
-    this.placesService = placesService;
+  constructor(placesService) {
     this.google = google;
+    this.placesService = placesService;
+    this.markers = [];
   }
 
-  // Méthode addmarker (Ajout des markers restaurants)
-  addMarker(props) {
-    let point = props.coords;
-    let marker = new google.maps.Marker({
-      position: point,
-      map: this.map
+  // Méthode d'ajout des marqueurs 
+  addMarker(place) {
+    const marker = new this.google.maps.Marker({
+      map: map,
+      title: place.name,
+      position: {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+      },
     });
-    this.bounds.extend(point)
+    this.markers.push(marker);
   }
 
-  //Méthode centerMap (Centrage de la map)
-  centerMap() {
-    this.map.panToBounds(this.bounds);
-    this.map.fitBounds(this.bounds);
-  }
-
-  // Position User
-  positionUser() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-
-        (position) => {
-          const marker = new google.maps.Marker({
-            position: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            },
-            map: this.map,
-            icon: 'assets/img/user.svg'
-          });
-        },
-        () => {
-          handleLocationError(true, infoWindow, this.map.getCenter());
-        }
-      );
-    } else {
-      // Le navigateur ne prend pas en charge la géolocalisation
-      handleLocationError(false, infoWindow, this.map.getCenter());
-    }
-  }
-
-  //placeMarkerAndPanTo
-  placeMarkerAndPanTo(latLng) {
-    new google.maps.Marker({
-      position: latLng,
-      map: this.map,
+  // Méthode de suppression des marqueurs
+  removeMarkers() {
+    this.markers.forEach(marker => {
+      marker.setMap(null);
     });
-    this.map.panTo(latLng);
   }
+
 }

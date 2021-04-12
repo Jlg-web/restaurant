@@ -1,0 +1,29 @@
+//992px and less
+@mixin tablet {
+    @media screen and (max-width: $tablet-width) {
+        @content;
+    }
+}
+
+@mixin tablet-portrait {
+    @media screen and (max-width: $tablet-portrait-width) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (max-width: $desktop) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and (max-width: $small-mobile-width) {
+        @content;
+    }
+}
+
+
+// @include tablet {}
+// @include tablet-portrait {}
+// @include desktop {}

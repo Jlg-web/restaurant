@@ -46,7 +46,20 @@
     position: absolute;
     display: block;
     z-index: 10;
-    right: 68.3%;
+    right: 68.5%;
+
+
+    @include desktop {
+      right: 67.5%;   
+    }
+
+    @include tablet {
+      right: 66.1%;;
+    }
+
+    @include tablet-portrait {
+      display: none;
+    } 
 
     button {
         width: 25px;
@@ -73,6 +86,11 @@
 
 .btn-filter {
     margin-top: 25px;
+
+    @include tablet {
+      display: flex;
+      flex-direction: column;
+    }
 }
 
 .select-box {

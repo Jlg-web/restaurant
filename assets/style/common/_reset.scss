@@ -2,10 +2,17 @@ html,
 body,
 h2,
 h3,
+h4,
 p,
 ul {
   padding: 0;
   margin: 0;
+}
+
+h3 {
+  @include tablet-portrait {
+    font-size: 17px;
+  }
 }
 
 .gmnoprint {

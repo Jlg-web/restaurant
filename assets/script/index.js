@@ -1,5 +1,4 @@
 let map, geocoder, infoWindow, lat, lng, panorama;
-
 let restaurants = [];
 const outPut = document.getElementById("lsOutput");
 const btnModal = document.getElementById("btn-modal");
@@ -9,6 +8,8 @@ const btnToggle = document.getElementById("btn-toggle");
 const containerToggleBtn = document.querySelector(".toggle-button-list");
 const containerMap = document.querySelector(".map");
 const btnToggleTxt = document.querySelector("#btn-toggle p");
+const menuMobile = document.getElementById("menu-mobile");
+const menuMobileTxt = document.querySelector("#menu-mobile p")
 
 const getUserPosition = async () => {
   const pos = await new Promise((resolve, reject) => {
@@ -21,7 +22,6 @@ const getUserPosition = async () => {
 
 //Initialisation MAP
 const initMap = async function () {
-
 
   // *** Récupération Latitude et longitude de l'utilisateur grâce à navigator.geolocation *** //
   await getUserPosition();
@@ -38,17 +38,12 @@ const initMap = async function () {
     streetViewControl: false,
   }
 
-  const city = {
-    lat: 48.897386,
-    lng: 2.5231119
-  };
-
   // On affiche la map + les options
   map = new google.maps.Map(document.getElementById("map"), options);
 
   // *** On ajoute le marker de l'utilisateur pour le repérer sur la map ***//
   // Ajout marker utilisateur
-  let marker = new google.maps.Marker({
+  const marker = new google.maps.Marker({
     position: centerMap,
     map: map,
     title: "Vous êtes ici !",
@@ -56,18 +51,15 @@ const initMap = async function () {
   })
 
   const placesService = new google.maps.places.PlacesService(map);
-  const googleMap = new GoogleMap(placesService, google, map);
+  const googleMap = new GoogleMap(placesService);
   const restaurants = new RestaurantController(googleMap);
-
   restaurants.getRestaurants(centerMap);
-
-
 
   //Appliquer les filtres
   btnFilter.addEventListener("click", () => {
     let startValue = parseInt(start.value, 10);
     let finishValue = parseInt(finish.value, 10);
-    restaurants.filter(startValue, finishValue);
+    restaurants.addilter(startValue, finishValue);
   });
 
   //Retirer les filtres
@@ -77,17 +69,19 @@ const initMap = async function () {
     restaurants.cancelFilter(selectStart, selectFinish);
   })
 
-
-  // Toggle list
+  // Toggle
   btnToggle.addEventListener("click", () => {
     if(outPut.style.left === "-100%") {
+
+      outPut.classList.add("hide");
       outPut.style.left = "0";
       containerToggleBtn.style.right = "68.3%";
       containerMap.style.width = "70%";
       btnToggleTxt.innerHTML = "Hide";
     } else {
       containerToggleBtn.classList.add = "toggle-button-arrow";
-      outPut.style.left = "-100%"
+      outPut.classList.add("show");
+      outPut.style.left = "-100%";
       containerToggleBtn.style.right = "inherit";
       containerMap.style.width = "100%";
       btnToggleTxt.innerHTML = "Show";
@@ -112,9 +106,20 @@ const initMap = async function () {
     });
     panorama.setVisible(true);
   });
+
+  // Mobile
+  menuMobile.addEventListener("click", () => {
+    if(outPut.style.display === "flex") {
+      outPut.style.display = "none";
+      menuMobileTxt.innerHTML = "Afficher la liste";
+    } else {
+      outPut.style.display = "flex";
+      menuMobileTxt.innerHTML = "Réduire la liste";
+    }
+  });
 }
 
-//Gecoding inversé
+//Gecoding
 function geocodeLatLng(e, geocoder) {
 
   const inputRestaurantAddress = document.getElementById("restaurant-address");
@@ -124,7 +129,6 @@ function geocodeLatLng(e, geocoder) {
   }, function (results, status) {
     if (status === 'OK') {
       if (results[0]) {
-        // console.log(results[0].formatted_address);
         inputRestaurantAddress.value = results[0].formatted_address;
       }
     }

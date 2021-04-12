@@ -4,28 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <link rel="stylesheet" href="assets/style/main.css">
-  <title>API</title>
-  <script>
-    async function init() {
-      await initMap()
-    }
-  </script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDovBDjarv0UQcJ7xfuw_ME0VoYvWNOe0w&libraries=places&callback=init&libraries=places"
-    defer></script>
+  <title>Site avis de restaurants</title>
+  <!-- Script fonction init -->
+  <script> async function init() {await initMap()}</script>
+  <!-- Script appel API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDovBDjarv0UQcJ7xfuw_ME0VoYvWNOe0w&libraries=places&callback=init&libraries=places" defer></script>
 </head>
 
 <body>
-
-  <!-- Liste des restaurant et map -->
+  <!-- Filtre + btn + Liste des restaurants -->
   <section id="lsOutput" class="content-restaurant">
 
     <div class="select-options">
-
       <label for="select">Filtrer par notes</label>
 
       <div class="select-style">
@@ -48,25 +39,31 @@
         </select>
       </div>
 
-
-
       <div class="btn-filter">
         <a id="btn-filter" href="#" class="btn btn-blue">Filtrer</a>
         <a id="btn-cancel" href="#" class="btn btn-red">Réinitialiser</a>
       </div>
-
     </div>
 
     <ul></ul>
   </section>
 
+  <!-- Bouton Show/Hide-->
   <div class="toggle-button-list">
     <button id="btn-toggle">
       <p>Hide</p>
     </button>
   </div>
 
-  <!-- MODAL DETAILS RESTAURANTS -->
+  <!-- Map -->
+  <div id="map" class="map"></div>
+
+  <!-- Menu mobile -->
+  <div id="menu-mobile" class="menu-mobile">
+    <p>Afficher la liste</p>
+  </div>
+
+  <!-- Modal détails des restaurants -->
   <div class="overlay" id="overlay"></div>
   <div id="modal-details-restaurant" class="details-restaurant">
     <div id="modal-details" class="modal-details">
@@ -74,39 +71,13 @@
     <div class="recovery-comment"></div>
   </div>
 
-  <div id="map" class="map"></div>
+  <!-- Modal ajout des restaurants -->
+  <div class="modal-add-restaurant Add-restaurant-details" id="modal"></div>
 
-  <!-- Modal ajout restaurant -->
-  <div class="modal-add-restaurant Add-restaurant-details" id="modal">
-    <!-- <div class="modal-content">
-      <p id="close-add-restaurant" class="close-modal close">Fermer la modale</p>
-      <h3>Ajouter un restaurant</h3>
-
-      <form action="" id="form-add-restaurant" onsubmit="return false">
-        <div class="flex flex-column m-b-16">
-          <label for="">Nom du restaurant</label>
-          <input id="restaurant-name" type="text">
-        </div>
-        <div class="flex flex-column m-b-16">
-          <label for="">Adresse du restaurant</label>
-          <input type="text" id="restaurant-address" disabled>
-        </div>
-        <button id="btn-modal" href="#" type="submit" class="btn m-t-16 mr btn-blue"
-          form="form-add-restaurant">Ajouter</button>
-        <button id="btn-modal-cancel" href="#" type="submit" class="btn btn-red"
-          form="form-add-restaurant">Annuler</button>
-      </form>
-
-    </div><!-->
-  </div>
-
-  <script src="assets/script/vendor.js"></script>
+  <!-- Scripts -->
   <script src="./assets/script/index.js"></script>
-  <script src="assets/script/class/GoogleMap.js"></script>
-  <script src="assets/script/class/Restaurant.js"></script>
-  <script src="assets/script/class/ReviewGestion.js"></script>
-  <script src="assets/script/class/RestaurantController.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./assets/script/class/GoogleMap.js"></script>
+  <script src="./assets/script/class/RestaurantController.js"></script>
 </body>
 
 </html>

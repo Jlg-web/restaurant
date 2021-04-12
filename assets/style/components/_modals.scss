@@ -1,125 +1,174 @@
 .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.81);
-    z-index: 10;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.81);
+  z-index: 10;
 }
 
 /* Modal détails restaurant */
 .details-restaurant {
-    flex-direction: column;
-    position: absolute;
-    background: white;
-    z-index: 10;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    min-width: 580px;
-    display: none;
-    flex-basis: 50;
-    overflow: scroll;
-    height: 650px;
-}
+  flex-direction: column;
+  position: absolute;
+  background: white;
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  min-width: 38%;
+  max-width: 42%;
+  display: none;
+  flex-basis: 50;
+  overflow: scroll;
+  height: 650px;
 
-.modal-details {
+  @include tablet {
+    min-width: 75%;
+  }
+
+  @include tablet-portrait {
+    min-width: 100%;
+    height: 100vh;
+  }
+
+  .modal-details {
     border-bottom: 1px solid #ececec;
     padding: 60px 20px 20px 20px;
+
+    h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 10px 0;
+      font-weight: lighter;
+      color: #868686;
+    }
+
+    input {
+      border: 1px solid #b2b2b2;
+      padding: 5px;
+      font-family: sans-serif;
+    }
+
+    input#note {
+      width: 32px;
+    }
+
+    input#author-name {
+      width: 80px;
+    }
+
+    input#author-name {
+      margin-bottom: 12px;
+    }
+
+    textarea {
+      font-family: sans-serif;
+      margin-bottom: 12px;
+    }
+
+    &.btn {
+      margin-top: 12px;
+    }
+
+    p.address-resto {
+      font-size: 14px;
+      color: #868686;
+      margin-bottom: 12px;
+    }
+  }
+
+
 }
 
-.modal-details .btn {
-    margin-top: 12px;
-}
-
-.modal-details .close-modal,
+.close-modal,
 .modal-add-restaurant .close-modal {
-    font-size: 12px;
-    cursor: pointer;
-    padding: 10px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #ccc;
-    transition: .2s ease-in-out;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #ccc;
+  transition: .2s ease-in-out;
 }
+
+
+
+
 
 .modal-details .close-modal:hover,
 .modal-add-restaurant .close-modal:hover {
-    color: #ff2121;
+  color: #ff2121;
 }
 
-.modal-details p.address-resto {
-    font-size: 14px;
-    color: #868686;
-    margin-bottom: 12px;
-}
+
 
 
 /* Modal ajout restaurants */
 .modal-add-restaurant {
-    position: absolute;
-    background: white;
-    z-index: 10;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    padding: 42px;
-    min-width: 600px;
-    display: none;
-  }
-  
-  .modal-add-restaurant.active {
-    display: block;
-  }
-  
-  .modal-add-restaurant h3 {
-    font-size: 32px;
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
-  
-  .modal-content label {
-    font-size: 16px;
-    color: #b9b7b7;
-    margin-bottom: 10px;
-  }
-  
-  .modal-content input {
-    padding: 16px;
-    border: 1px solid #d7d7d7;
-  }
-  
-  .modal-content h3.title-resto {
-    font-size: 20px;
-    margin-bottom: 3px;
-  }
-  
-  .modal-content input:focus,
-  .btn:focus {
-    outline: none;
-  }
-  
-  #modal-content-restaurant .close {
-    font-size: 1.2rem;
-    position: absolute;
-    right: 18px;
-    top: 10px;
-    padding: 1.4rem;
-    cursor: pointer;
-    color: #afafaf;
-  }
-  
-  #modal-content-restaurant h2 {
-    margin-top: 3rem;
-    font-size: 1.8rem;
-    border-bottom: 1px solid #efefef;
-    padding-bottom: .5rem;
-  }
-  
-  #modal-content-restaurant textarea {
-    margin-top: 1rem !important;
-    resize: none;
-  }
+  position: absolute;
+  background: white;
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  padding: 42px;
+  min-width: 600px;
+  display: none;
+}
+
+.modal-add-restaurant.active {
+  display: block;
+}
+
+.modal-add-restaurant h3 {
+  font-size: 32px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.modal-content label {
+  font-size: 16px;
+  color: #b9b7b7;
+  margin-bottom: 10px;
+}
+
+.modal-content input {
+  padding: 16px;
+  border: 1px solid #d7d7d7;
+}
+
+.modal-content h3.title-resto {
+  font-size: 20px;
+  margin-bottom: 3px;
+}
+
+.modal-content input:focus,
+.btn:focus {
+  outline: none;
+}
+
+#modal-content-restaurant .close {
+  font-size: 1.2rem;
+  position: absolute;
+  right: 18px;
+  top: 10px;
+  padding: 1.4rem;
+  cursor: pointer;
+  color: #afafaf;
+}
+
+#modal-content-restaurant h2 {
+  margin-top: 3rem;
+  font-size: 1.8rem;
+  border-bottom: 1px solid #efefef;
+  padding-bottom: .5rem;
+}
+
+#modal-content-restaurant textarea {
+  margin-top: 1rem !important;
+  resize: none;
+}
